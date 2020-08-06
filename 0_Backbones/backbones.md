@@ -127,13 +127,6 @@ CVPR2017 best paper, reuse of feature is important for learning, based on Resnet
 Refer to paper [Densely Connected Convolutional Networks](https://arxiv.org/abs/1608.06993)
 ![nn_densenet](https://user-images.githubusercontent.com/42667259/89555466-6099f400-d810-11ea-88f5-a8b9543b5225.png)
 
-### MobileNet, Andrew G. Howard et al.
-- v1, efficient models for mobile and embedded vision applications.
-
-1. Depthwise separable convolution, 
-
-Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
-
 ### SENet, Hu Jie, Li Shen
 ILSVRC 2017 1st place. This is an application of "attention" mechanism, more similar to human brain. 
 
@@ -158,7 +151,7 @@ Are there any laws applicable for the design of the nerual network architecture?
 
 3. relatively smaller but more efficient and accurate than compared models.
 
-Refer to paper [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks[(https://arxiv.org/pdf/1905.11946.pdf)
+Refer to paper [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/pdf/1905.11946.pdf)
 ![nn_efficientnet](https://user-images.githubusercontent.com/42667259/89571214-9ac2c000-d827-11ea-9863-cdd8824c7f03.png)
 ![nn_efficientnet_2](https://user-images.githubusercontent.com/42667259/89572219-1cffb400-d829-11ea-9f91-3e64abfb3caa.png)
 
