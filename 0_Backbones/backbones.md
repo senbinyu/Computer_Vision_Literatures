@@ -34,7 +34,7 @@ refer to paper [Imagenet classification with deep convolutional neural networks]
 ![nn_vgg](https://user-images.githubusercontent.com/42667259/89520223-d46ed900-d7dd-11ea-9554-99f9603fd6e0.png)
 
 ### GoogLeNet, Christian Szegedy, Wei Liu et al.
-v1, 2014 ImageNet competition 1st. 
+- v1, 2014 ImageNet competition 1st. 
 
 1. Apart from increasing the network depth, (22 layers for googlenet v1,) increase the width of the network
 
@@ -46,7 +46,7 @@ Refer to [Going deeper with convolutions](https://static.googleusercontent.com/m
 
 ![nn_googlenet_v1](https://user-images.githubusercontent.com/42667259/89532952-e9099c00-d7f2-11ea-9ac3-89cb14c4e1e6.png)
 
-v2, Christian Szegedy et al. v2, v3 share the same paper.
+- v2, Christian Szegedy et al. v2, v3 share the same paper.
 
 1. Factorizing Convolutions, use 1 * n and n * 1 to replace 3 * 3, shown as figure below. Theoritically, it can save computational cost dramatically when feature map is large (n is large). But in practice, it can not work well in the early layers, n ranges 12~20 seems to be a reasonable number. 卷积分解不适合早期大的特征层，而适合中期12~20大小的特征层
 
@@ -59,9 +59,32 @@ Refer to paper [Rethinking the Inception Architecture for Computer Vision](https
 ![nn_googlenet_v2](https://user-images.githubusercontent.com/42667259/89534536-60d8c600-d7f5-11ea-8f99-afc2d13f2985.png)
 ![nn_googlenet_v2_2](https://user-images.githubusercontent.com/42667259/89537049-0d687700-d7f9-11ea-8d91-3a204d7e18a6.png)
 
-v3, shares the same paper with v2.
+- v3, shares the same paper with v2, minor additions.
 
-add Model Regularization via Label Smoothing, reduce the model overfitting.
+Model Regularization via Label Smoothing, reduce the model overfitting. Training method: RMSProp to replace SGD. A resolution test was carried out.
 
 Refer to paper [Rethinking the Inception Architecture for Computer Vision](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Szegedy_Rethinking_the_Inception_CVPR_2016_paper.pdf)
 
+- v4 (pure inception-v4), inception-resnet, together in a paper. So here talk them together, mainly the inception-resnet
+
+1. Combine the inception module with residual module to create a new module: inception-resnet. It increases the net depth and imporves the speed. 
+
+2. Comparison: inception-v3 with inception-resnet-v1; inception-v4 with inception-resnet-v2, have similar accuracies.
+
+Refer to paper [Inception-v4, inception-resnet and the impact of residual connections on learning](https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewPaper/14806)
+
+### ResNet
+1st place in all 5 competitions of ILSVRC and COCO 2015. 
+
+It was found that deeper CNN is extremely useful for almost all the tasks. But they are difficult to train since the existence of degradation problem. A new architecture with residual module was proposed.
+
+1. deeper network performs worse than shallower network. A creative idea: if nothing is learned, not worse than before: thus identity mapping, also known as a shortcut connection is proposed. H(x) = x + F(x), F(x) = H(x) - x, known as a residual.
+
+2. different depth of ResNet, from 18 layers to 34, 50, 101, to extremely deep 152 layers.
+
+3. different ways of shortcut, if dimension is not changed, identity mapping can be used. But in practice, dimension change, therefore, a "bottleneck" is created. (This is popular in the baselines afterwords, since it can save parameters.)
+
+![nn_resnet](https://user-images.githubusercontent.com/42667259/89544188-19a50200-d802-11ea-8bff-88434e5bb831.png)
+![nn_resnet_2](https://user-images.githubusercontent.com/42667259/89545365-8bca1680-d803-11ea-8b35-3b824952e96c.png)
+
+Refer to paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
