@@ -111,4 +111,24 @@ increasing from 1 to 32 while keeping complexity, the error rate keeps reducing.
 Refer to paper [Aggregated Residual Transformations for Deep Neural Networks](https://arxiv.org/abs/1611.05431)
 ![nn_resnext](https://user-images.githubusercontent.com/42667259/89551303-19f5cb00-d80b-11ea-9e98-13a7d1df6779.png)
 
+### denseNet, Huang Gao, Liu Zhuang
+CVPR2017 best paper, reuse of feature is important for learning, based on Resnet.
+
+1. dense connectivity, current layer has connections with all the previous layers. Traditional CNN, L layer, L connection, denseNet, one dense block, L layers has L*(L+1)/2 connections.
+
+2. growth rate, lth layer has k_0 + k*(l-1) feature maps, k_0 is the input channels number, k is the growth rate (each layer features number).
+
+3. bottleneck layer, the author found this layer is especially effective for densenet. use 1 * 1 conv, feature map 4k (improve efficiency), and then 3 * 3 conv, reduce back to k
+
+4. compression, transition layer feature maps are reduced with \theta. This is also confirmed in the experiments, heat map shows that the dense block is less relevant to the previous transition layer. 说明了transition layer输出了很多冗余信息，去除一些，可以使网络轻量化，但又不至于严重影响精度。
+
+Refer to paper [Densely Connected Convolutional Networks](https://arxiv.org/abs/1608.06993)
+![nn_densenet](https://user-images.githubusercontent.com/42667259/89555466-6099f400-d810-11ea-88f5-a8b9543b5225.png)
+
 ### MobileNet
+
+
+
+### SENet, Hu Jie, Li Shen
+
+Refer to paper [Squeeze-and-Excitation Networks](https://arxiv.org/abs/1709.01507)
