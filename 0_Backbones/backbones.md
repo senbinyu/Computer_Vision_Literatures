@@ -134,7 +134,6 @@ Refer to paper [Densely Connected Convolutional Networks](https://arxiv.org/abs/
 
 Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
 
-
 ### SENet, Hu Jie, Li Shen
 ILSVRC 2017 1st place. This is an application of "attention" mechanism, more similar to human brain. 
 
@@ -164,3 +163,12 @@ Refer to paper [EfficientNet: Rethinking Model Scaling for Convolutional Neural 
 ![nn_efficientnet_2](https://user-images.githubusercontent.com/42667259/89572219-1cffb400-d829-11ea-9f91-3e64abfb3caa.png)
 
 ### NAS
+Above are architectures designed from people's empirical observations. Is there any method to design network automatically? In 2016, MIT and google proposed Neural Architecture Search almost at the same time. But the computation cost is extremely expensive.
+
+1. search strategies, reinforcement learning is used here, but there are many other ways, i.e., Evolutionary algorithm, gradient-based method, boosting etc. 
+
+2. speed-up, Hierarchical Representation, weight sharing etc.
+
+Refer to paper [Neural Architecture Search with Reinforcement Learning](https://arxiv.org/abs/1611.01578)
+[Designing Neural Network Architectures using Reinforcement Learning](https://arxiv.org/abs/1611.02167)
+![nn_nas](https://user-images.githubusercontent.com/42667259/89575120-93061a00-d82d-11ea-89d0-b02a79fbe3c9.png)
