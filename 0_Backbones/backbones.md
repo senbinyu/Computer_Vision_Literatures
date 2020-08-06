@@ -73,7 +73,7 @@ Refer to paper [Rethinking the Inception Architecture for Computer Vision](https
 
 Refer to paper [Inception-v4, inception-resnet and the impact of residual connections on learning](https://www.aaai.org/ocs/index.php/AAAI/AAAI17/paper/viewPaper/14806)
 
-### ResNet
+### ResNet, He Kaiming
 1st place in all 5 competitions of ILSVRC and COCO 2015. 
 
 It was found that deeper CNN is extremely useful for almost all the tasks. But they are difficult to train since the existence of degradation problem. A new architecture with residual module was proposed.
@@ -84,7 +84,31 @@ It was found that deeper CNN is extremely useful for almost all the tasks. But t
 
 3. different ways of shortcut, if dimension is not changed, identity mapping can be used. But in practice, dimension change, therefore, a "bottleneck" is created. (This is popular in the baselines afterwords, since it can save parameters.)
 
+Refer to paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
+
 ![nn_resnet](https://user-images.githubusercontent.com/42667259/89544188-19a50200-d802-11ea-8bff-88434e5bb831.png)
 ![nn_resnet_2](https://user-images.githubusercontent.com/42667259/89545365-8bca1680-d803-11ea-8b35-3b824952e96c.png)
 
-Refer to paper [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
+### Xception, Chollet, Francois
+Based on Inception-v3, if we do not want to design the inception architecture every time, just use the same structure evenly at one module, it will be easier for the network design. (This idea is popular in the other baselines, i.e., mobileNet.)
+
+1. extreme inception. from equivalent inception structure, now only calculate a part of the channels, (group = xx in pytorch).
+
+2. depthwise separable convolution, save parameters greatly, details see mobileNet below.
+
+Refer to paper [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/abs/1610.02357)
+
+### ResNeXt, Xie Saining, He Kaiming
+ILSVRC 2016 2nd palce.
+
+A modification of the inception-resnet. Different from the human design of inception-resnet, resnext use the same branches to finish the design.
+
+1. group convolution, cardinality(基数). It is a compromise between normal convolution (all channels) and depthwise separable convolution (each channel). This is a group of channels. 
+
+2. findings: "On the ImageNet-1K dataset, we empirically show that even under the restricted condition of maintaining complexity, increasing cardinality is able to improve classification accuracy. Moreover, increasing cardinality is more effective than going deeper or wider when we increase the capacity." "With cardinality C
+increasing from 1 to 32 while keeping complexity, the error rate keeps reducing." "increasing cardinality at the price of reducing width starts to show saturating accuracy when the bottleneck width is small." 增加基数在一定程度上会改善表现，文中实验了从1到32 groups，误差逐步降低。但需要注意的是，这是将dimensions控制在4d以上，更小的dimension下作者认为不值得再实验。
+
+Refer to paper [Aggregated Residual Transformations for Deep Neural Networks](https://arxiv.org/abs/1611.05431)
+![nn_resnext](https://user-images.githubusercontent.com/42667259/89551303-19f5cb00-d80b-11ea-9e98-13a7d1df6779.png)
+
+### MobileNet
