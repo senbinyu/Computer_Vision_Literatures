@@ -148,3 +148,19 @@ ILSVRC 2017 1st place. This is an application of "attention" mechanism, more sim
 
 Refer to paper [Squeeze-and-Excitation Networks](https://arxiv.org/abs/1709.01507)
 ![nn_senet](https://user-images.githubusercontent.com/42667259/89558401-77424a00-d814-11ea-99b2-465ed516ba84.png)
+
+### efficientNet, Tan Mingxing and Quoc V. Le
+Are there any laws applicable for the design of the nerual network architecture? The authors proposed some basic points and an empirical equation.
+
+1. "Scaling up any dimension of network width, depth, or resolution improves accuracy, but the accuracy gain diminishes for bigger models". 
+单独增加某个参数只能在一定范围内获得好的结果
+
+2. model scaling, balancing the width, depth and resolution can lead to better performance. a highly effective compound coefficient. The coefficient for three main parameters: width, w, depth, d, resolution, r; only if d * w^2 * r^2 = 2, they can achieve a relative balanced architecture. If they want to expand or compress, 2^\phi, \phi is the expansion coefficient, it becomes (d * w^2 * r^2)^\phi, all three parameters changed with exponent \phi.
+
+3. relatively smaller but more efficient and accurate than compared models.
+
+Refer to paper [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks[(https://arxiv.org/pdf/1905.11946.pdf)
+![nn_efficientnet](https://user-images.githubusercontent.com/42667259/89571214-9ac2c000-d827-11ea-9863-cdd8824c7f03.png)
+![nn_efficientnet_2](https://user-images.githubusercontent.com/42667259/89572219-1cffb400-d829-11ea-9f91-3e64abfb3caa.png)
+
+### NAS
