@@ -165,3 +165,14 @@ Above are architectures designed from people's empirical observations. Is there 
 Refer to paper [Neural Architecture Search with Reinforcement Learning](https://arxiv.org/abs/1611.01578)
 [Designing Neural Network Architectures using Reinforcement Learning](https://arxiv.org/abs/1611.02167)
 ![nn_nas](https://user-images.githubusercontent.com/42667259/89575120-93061a00-d82d-11ea-89d0-b02a79fbe3c9.png)
+
+### Res2Net, Gao Shanghua et al.
+
+1. Multi-scale fusion. "most existing methods represent the multi-scale features in a layerwise manner. In this paper, we propose a novel building block for CNNs, namely Res2Net, by constructing hierarchical residual-like connections within one single residual block." It is based on the bottleNeck structure, 1 * 1, 3 * 3, and then 1 * 1, now it becomes like the following figure.
+
+2. can combine with other backbones, ResNet, ResNeXt etc. Improve the accuracy significantly. 70% to 73% on COCO from ResNet-50 to Res2Net-50.
+
+3. The author also tried varying kinds of tasks, e.g., object detection, semantic/instance segmentation, key points estimation, all of them show satisfactory results.
+
+Refer to paper [Res2Net: A New Multi-scale Backbone Architecture](https://ieeexplore.ieee.org/abstract/document/8821313?casa_token=87qNMjgrnBYAAAAA:31BsZutpV6YptiDHrA-AOZ9p0b0nQjR-ONrBXX2DwBlFVi4nxwXOnRKcaLrnL0h5ysatVql9Vg)
+![nn_res2net](https://user-images.githubusercontent.com/42667259/89580656-fc8a2680-d835-11ea-84c7-59715bdf338f.png)
