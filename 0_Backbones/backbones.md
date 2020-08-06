@@ -48,7 +48,7 @@ Refer to [Going deeper with convolutions](https://static.googleusercontent.com/m
 
 - v2, Christian Szegedy et al. v2, v3 share the same paper.
 
-1. Factorizing Convolutions, use 1 * n and n * 1 to replace 3 * 3, shown as figure below. Theoritically, it can save computational cost dramatically when feature map is large (n is large). But in practice, it can not work well in the early layers, n ranges 12~20 seems to be a reasonable number. 卷积分解不适合早期大的特征层，而适合中期12~20大小的特征层
+1. Factorizing Convolutions, use 1 * n and n * 1 to replace 3 * 3, shown as figure below. Theoritically, it can save computational cost dramatically when feature map is large (n is large). But in practice, it can not work well in the early layers, n ranges 12-20 seems to be a reasonable number. 卷积分解不适合早期大的特征层，而适合中期12-20大小的特征层
 
 2. efficient grid size reduction. Use pooling layer (stride 2 in the following figure) and inception(convolution with stride 2 etc.) parallelly. 
 
@@ -56,7 +56,7 @@ Refer to [Going deeper with convolutions](https://static.googleusercontent.com/m
 
 Refer to paper [Rethinking the Inception Architecture for Computer Vision](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Szegedy_Rethinking_the_Inception_CVPR_2016_paper.pdf)
 
-![nn_googlenet_v2](https://user-images.githubusercontent.com/42667259/89534536-60d8c600-d7f5-11ea-8f99-afc2d13f2985.png)
+![nn_googlenet_v2](https://user-images.githubusercontent.com/42667259/89534536-60d8c600-d7f5-11ea-8f99-afc2d13f2985.png#pic_center =60x20)
 ![nn_googlenet_v2_2](https://user-images.githubusercontent.com/42667259/89537049-0d687700-d7f9-11ea-8d91-3a204d7e18a6.png)
 
 - v3, shares the same paper with v2, minor additions.
