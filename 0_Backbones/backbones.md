@@ -94,9 +94,11 @@ Based on Inception-v3, if we do not want to design the inception architecture ev
 
 1. extreme inception. from equivalent inception structure, now only calculate a part of the channels, (group = xx in pytorch).
 
-2. depthwise separable convolution, save parameters greatly, details see mobileNet below.
+2. depthwise separable convolution (originally from a phd thesis: Laurent Sifre, Rigid-Motion Scattering For Image Classification), save parameters greatly. By separating features evenly, the parameters in figure below can be m * k + 3 * 3 * k, m is the features, k is the kernels number.
+Details can also see mobileNet in ../03_Lightweight network.
 
 Refer to paper [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/abs/1610.02357)
+![nn_xception](https://user-images.githubusercontent.com/42667259/89560940-17e63900-d818-11ea-95d1-bb73602a132c.png)
 
 ### ResNeXt, Xie Saining, He Kaiming
 ILSVRC 2016 2nd palce.
@@ -125,10 +127,24 @@ CVPR2017 best paper, reuse of feature is important for learning, based on Resnet
 Refer to paper [Densely Connected Convolutional Networks](https://arxiv.org/abs/1608.06993)
 ![nn_densenet](https://user-images.githubusercontent.com/42667259/89555466-6099f400-d810-11ea-88f5-a8b9543b5225.png)
 
-### MobileNet
+### MobileNet, Andrew G. Howard et al.
+- v1, efficient models for mobile and embedded vision applications.
 
+1. Depthwise separable convolution, 
+
+Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
 
 
 ### SENet, Hu Jie, Li Shen
+ILSVRC 2017 1st place. This is an application of "attention" mechanism, more similar to human brain. 
+
+1. Focus on the *channel relationship* and use squeeze and excitation block. 1 * 1 * C, all the channels info together and then rescale (sigmoid), the important channel features can contribute more.
+
+2. squeeze, spatial global average, to use the connections between different channels. 作者利用的是通道间的相关性，而非空间分布
+
+3. excitation, in practice, two fully connected layers are used: first one, compressed the channels from C to C/r and with ReLU, and second layer recover to C channels with sigmoid to scale. Then the important one can contribute more. r is the compression ratio. The author found that 16 is the best choose.
+
+4. SE block can also work together with ResNet and Inception. 
 
 Refer to paper [Squeeze-and-Excitation Networks](https://arxiv.org/abs/1709.01507)
+![nn_senet](https://user-images.githubusercontent.com/42667259/89558401-77424a00-d814-11ea-99b2-465ed516ba84.png)
