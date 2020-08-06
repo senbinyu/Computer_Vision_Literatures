@@ -33,4 +33,35 @@ refer to paper [Imagenet classification with deep convolutional neural networks]
 
 ![nn_vgg](https://user-images.githubusercontent.com/42667259/89520223-d46ed900-d7dd-11ea-9554-99f9603fd6e0.png)
 
-### GoogLeNet, 
+### GoogLeNet, Christian Szegedy, Wei Liu et al.
+v1, 2014 ImageNet competition 1st. 
+
+1. Apart from increasing the network depth, (22 layers for googlenet v1,) increase the width of the network
+
+2. Introduce smaller kernels, 1 * 1 convolution, reduce the dimensions and save parameters. Parameters: AlexNet ~ 12 GoogLeNet, VGG ~ 3 AlexNet
+
+3. Inception module is easy to add or remove, which is to mimic the human brain to create a sparce connection.
+
+Refer to [Going deeper with convolutions](https://static.googleusercontent.com/media/research.google.com/zh-CN//pubs/archive/43022.pdf)
+
+![nn_googlenet_v1](https://user-images.githubusercontent.com/42667259/89532952-e9099c00-d7f2-11ea-9ac3-89cb14c4e1e6.png)
+
+v2, Christian Szegedy et al. v2, v3 share the same paper.
+
+1. Factorizing Convolutions, use 1 * n and n * 1 to replace 3 * 3, shown as figure below. Theoritically, it can save computational cost dramatically when feature map is large (n is large). But in practice, it can not work well in the early layers, n ranges 12~20 seems to be a reasonable number. 卷积分解不适合早期大的特征层，而适合中期12~20大小的特征层
+
+2. efficient grid size reduction. Use pooling layer (stride 2 in the following figure) and inception(convolution with stride 2 etc.) parallelly. 
+
+3. propose some advices for the design of an efficient network: Avoid representational bottlenecks, especially early in the network; Higher dimensional representations are easier to process locally within a network; Spatial aggregation can be done over lower dimensional embeddings without much or any loss in representational power (like RGB image to gray); Balance the width and depth of the network (This is further concluded in the recent efficientNet 2019). 早期特征尺寸不能急剧减小，避免出现瓶颈；低维特征时进行空间融合，并不会特别明显的增加损失（这感觉也像是可以进行特征融合的一个体现）
+
+Refer to paper [Rethinking the Inception Architecture for Computer Vision](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Szegedy_Rethinking_the_Inception_CVPR_2016_paper.pdf)
+
+![nn_googlenet_v2](https://user-images.githubusercontent.com/42667259/89534536-60d8c600-d7f5-11ea-8f99-afc2d13f2985.png)
+![nn_googlenet_v2_2](https://user-images.githubusercontent.com/42667259/89537049-0d687700-d7f9-11ea-8d91-3a204d7e18a6.png)
+
+v3, shares the same paper with v2.
+
+add Model Regularization via Label Smoothing, reduce the model overfitting.
+
+Refer to paper [Rethinking the Inception Architecture for Computer Vision](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Szegedy_Rethinking_the_Inception_CVPR_2016_paper.pdf)
+
