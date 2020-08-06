@@ -56,7 +56,7 @@ Refer to [Going deeper with convolutions](https://static.googleusercontent.com/m
 
 Refer to paper [Rethinking the Inception Architecture for Computer Vision](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Szegedy_Rethinking_the_Inception_CVPR_2016_paper.pdf)
 
-![nn_googlenet_v2](https://user-images.githubusercontent.com/42667259/89534536-60d8c600-d7f5-11ea-8f99-afc2d13f2985.png#pic_center =60x20)
+![nn_googlenet_v2](https://user-images.githubusercontent.com/42667259/89534536-60d8c600-d7f5-11ea-8f99-afc2d13f2985.png#60x20)
 ![nn_googlenet_v2_2](https://user-images.githubusercontent.com/42667259/89537049-0d687700-d7f9-11ea-8d91-3a204d7e18a6.png)
 
 - v3, shares the same paper with v2, minor additions.
