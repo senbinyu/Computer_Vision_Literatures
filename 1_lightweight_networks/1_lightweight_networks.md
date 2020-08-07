@@ -52,11 +52,17 @@ Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile V
 ![nn_mobileNet](https://user-images.githubusercontent.com/42667259/89632812-20d01c80-d8a3-11ea-986a-146a3a132413.png)
 
 - v2, Mark Handler, Andrew Howard et al.
+v1 has some problems, depthwise conv has many 0 kernels, which means the training is not good enough. (depthwise训出来的kernel有不少是空的，过小的kernel size加上ReLU的激活影响，0的部分无法恢复)
 
+The innovative parts are inverted residual structures + linear bottleneck, obtain satisfactory results vs mobileNet-v1: 75ms vs 113ms; 3.4M vs 4.2M parameters; 72 vs 70.6 Top1 on ImageNet.
+
+1. inverted residual structure, 1 * 1 expansion the channels + ReLU6, 3 * 3 depthwise conv + ReLU6, and then 1 * 1 with linear func, remove the activation to maintain the manifolds of interest, the *inverted residual with linear bottleneck*. (low dimension, ReLU would destory the manifolds of interests, so use linear func here)
 
 Refer to paper [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://openaccess.thecvf.com/content_cvpr_2018/html/Sandler_MobileNetV2_Inverted_Residuals_CVPR_2018_paper.html)
+![nn_mobileNet_v2](https://user-images.githubusercontent.com/42667259/89647200-75809100-d8bd-11ea-973c-89528028c09d.png)
 
 - v3, Andrew Howard et al.
+
 
 Refer to paper [Searching for mobilenetv3](https://openaccess.thecvf.com/content_ICCV_2019/html/Howard_Searching_for_MobileNetV3_ICCV_2019_paper.html)
 
