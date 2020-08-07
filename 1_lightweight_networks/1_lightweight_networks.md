@@ -76,11 +76,14 @@ Refer to paper [Searching for mobilenetv3](https://openaccess.thecvf.com/content
 
 ### shuffleNet
 - v1, Zhang Xiangyu
-In ResNeXt, group conv (several channels) is used; in mobileNet, it is an extreme case, each channel is a group, is conved separately. But the relationship between different channels has not been utilized. 
+In ResNeXt, group conv (several channels) is used; in mobileNet, it is an extreme case, each channel is a group, is conved separately. In mobileNet-va paper, 1 * 1 conv (pointwise conv) occupies 94% MAdds. ShuffleNet is trying to avoid this problem. Moreover, the relationship between different channels has not been utilized. (组内的卷积不利于通道间信息交流)
 
-1. 
+1. channel shuffle, together with group conv. use 1 * 1 group conv to replace the 1 * 1 standard conv, to save MAdds. group *g* usually is not too large, e.g., 1,2,3,4,8 etc. Too many groups may lead to the input channels in each group too less, which may cause worse performance.
+
+2. Comparisons between with shuffle and without shuffle, and shuffle with mobilenet. shuffleNet has betetter performance than VGG, ResNet, ResNeXt and mobileNet when they are keeping the similar network size.
 
 Refer to paper [ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices](https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.html)
+![nn_shuffleNet](https://user-images.githubusercontent.com/42667259/89659653-740c9400-d8d0-11ea-8f05-d7627fb2afe2.png)
 
 - v2, 
 
