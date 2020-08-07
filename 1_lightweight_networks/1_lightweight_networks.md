@@ -28,12 +28,28 @@ Refer to paper [Lightweight Network Research Based on Deep Learning: A Review](h
 Refer to paper [SqueezeNet: AlexNet-level accuracy with 50x fewer parameters and< 0.5 MB model size](https://arxiv.org/abs/1602.07360)
 ![nn_squeezeNet](https://user-images.githubusercontent.com/42667259/89582872-a3bc8d00-d839-11ea-9180-5cbc5e55ffa5.png)
 
+### Xception, Chollet, Francois
+Based on Inception-v3, since it used depthwise separable convolution, many researchers consider it as a lightweight network. If we do not want to design the inception architecture every time, just use the same structure evenly at one module, it will be easier for the network design. (This idea is popular in the other baselines, i.e., mobileNet.)
+
+1. extreme inception. from equivalent inception structure, now only calculate a part of the channels, (group = xx in pytorch).
+
+2. depthwise separable convolution (originally from a phd thesis: Laurent Sifre, Rigid-Motion Scattering For Image Classification), save parameters greatly. By separating features evenly, the parameters in figure below can be m * k + 3 * 3 * k, m is the features, k is the kernels number.
+Details can also see mobileNet below.
+
+Refer to paper [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/abs/1610.02357)
+![nn_xception](https://user-images.githubusercontent.com/42667259/89560940-17e63900-d818-11ea-95d1-bb73602a132c.png)
+
 ### MobileNet, Andrew G. Howard et al.
 - v1, efficient models for mobile and embedded vision applications.
 
-1. Depthwise separable convolution, 
+1. Depthwise separable convolution: two parts, 1) depthwise convolution, for M channels, we have M kernels, each channel corresponds to one kernel; 2) pointwise convolution, we use 1 * 1 kernel to have convolution, thus it is pointwise, see figure below. These two operations can save parameters. Originally, it is M * N * D_K * D_K * imageSize, now it is M * D_K * D_K * imageSize + N * M * imageSize. M is the input channels, N is the output channels
+
+2. thinner models, i.e., model compression. model shrink hyperparameters, $\alpha$, used for input and output channels. $\rho$ for image resolution, but $\rho$ only decreases the FLOPs, but not the parameters amounts.
 
 Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
+![nn_mobileNet](https://user-images.githubusercontent.com/42667259/89632812-20d01c80-d8a3-11ea-986a-146a3a132413.png)
+
+- v2,
 
 
 ### shuffleNet
