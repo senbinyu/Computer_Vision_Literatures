@@ -1,7 +1,17 @@
 ##### collections of some popular light neural networks architectures design, which are widely used in mobiles etc.
 
 ## 1. Review papers
-Review papers of lightweight  networks usually include the model compression and pruing tricks, which are detailed described in ../2_model_compression_speedup
+Review papers of lightweight  networks usually include the model compression and pruing tricks, which are further detailed described in ../2_model_speedup
+
+- Cheng Yu et al., A survey of model compression and acceleration for deep neural networks, 2017. 
+
+Refer to paper [A survey of model compression and acceleration for deep neural networks](https://arxiv.org/abs/1710.09282)
+
+- Cheng Jian et al., Recent advances in efficient computation of deep convolutional neural networks, 2018.
+
+Refer to paper [Recent advances in efficient computation of deep convolutional neural networks](https://link.springer.com/content/pdf/10.1631/FITEE.1700789.pdf)
+
+- Li Yahui et al., Lightweight Network Research Based on Deep Learning: A Review, 2018
 
 Refer to paper [Lightweight Network Research Based on Deep Learning: A Review](https://ieeexplore.ieee.org/abstract/document/8483963?casa_token=Ro1rJdUIkXoAAAAA:GukzNyQi38qOA4v-B6394PvpFp6R3j0tvvXDNCKnIPkYf5EEA_GtTSfWdvK19WS9Zl4lgP5-mA)
 
