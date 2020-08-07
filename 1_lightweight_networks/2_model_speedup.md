@@ -1,4 +1,5 @@
-#### collections of papers focused on model compression and tricks, which are used for the speedup of calculations. If you want to know the area fastly, recommand to read the review papers, which can give you a whole picture.
+# Model Compression and Acceleration
+#### This is a collection of papers focused on model compression and tricks, which are used for the speedup of calculations. If you want to know the area fastly, recommand to read the review papers, which can give you a whole picture.
 
 ## 1. Review papers
 Here are several papers recommanded for the model compression and acceleration. 
@@ -20,8 +21,8 @@ Refer to paper [Deep learning on mobile devices: a review](https://www.spiedigit
 Refer to paper [A comprehensive survey on model compression and acceleration](https://link.springer.com/content/pdf/10.1007/s10462-020-09816-7.pdf)
 
 ## 2. Model compression and speedup approaches
-Papers above have some overlapping areas, so in this section, I listed the survey into different categories.
-
+Papers above have some overlapping areas, so in this section, I listed the survey into the following categories.
+![compression_approaches](https://user-images.githubusercontent.com/42667259/89688580-c8c90280-d902-11ea-82b1-72fdd6006b20.png)
 ### 2.1 Parameter pruning and quantization
 
 
