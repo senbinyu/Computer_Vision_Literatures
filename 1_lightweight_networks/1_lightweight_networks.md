@@ -49,12 +49,22 @@ Refer to paper [Xception: Deep Learning with Depthwise Separable Convolutions](h
 Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
 ![nn_mobileNet](https://user-images.githubusercontent.com/42667259/89632812-20d01c80-d8a3-11ea-986a-146a3a132413.png)
 
-- v2,
+- v2, Mark Handler, Andrew Howard et al.
 
+Refer to paper [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://openaccess.thecvf.com/content_cvpr_2018/html/Sandler_MobileNetV2_Inverted_Residuals_CVPR_2018_paper.html)
+
+- v3, Andrew Howard et al.
+
+Refer to paper [Searching for mobilenetv3](https://openaccess.thecvf.com/content_ICCV_2019/html/Howard_Searching_for_MobileNetV3_ICCV_2019_paper.html)
 
 ### shuffleNet
+- v1, 
 
-Refer to paper []()
+Refer to paper [ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices](https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.html)
+
+- v2, 
+
+Refer to paper [ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Design](https://openaccess.thecvf.com/content_ECCV_2018/html/Ningning_Light-weight_CNN_Architecture_ECCV_2018_paper.html)
 
 ### MNASNet, Tan Mingxing et al.
 mobile NASNet, 1.8x speed of mobileNet-v2 on ImageNet with 78ms inference latency on a pixel phone. But the search of architecture is computation costly.
