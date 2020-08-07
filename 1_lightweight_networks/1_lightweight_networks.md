@@ -40,16 +40,19 @@ Refer to paper [Xception: Deep Learning with Depthwise Separable Convolutions](h
 ![nn_xception](https://user-images.githubusercontent.com/42667259/89560940-17e63900-d818-11ea-95d1-bb73602a132c.png)
 
 ### MobileNet, Andrew G. Howard et al.
-- v1, efficient models for mobile and embedded vision applications.
+- v1, efficient models for mobile and embedded vision applications. Compared to squeezeNet, parameters much fewer and accuracy higher.
 
 1. Depthwise separable convolution: two parts, 1) depthwise convolution, for M channels, we have M kernels, each channel corresponds to one kernel; 2) pointwise convolution, we use 1 * 1 kernel to have convolution, thus it is pointwise, see figure below. These two operations can save parameters. Originally, it is M * N * D_K * D_K * imageSize, now it is M * D_K * D_K * imageSize + N * M * imageSize. M is the input channels, N is the output channels
 
 2. thinner models, i.e., model compression. model shrink hyperparameters, $\alpha$, used for input and output channels. $\rho$ for image resolution, but $\rho$ only decreases the FLOPs, but not the parameters amounts.
 
+3. MobileNet can be used in many areas, e.g., object detection, large scale geolocalization, face attributes. In Face attributes, distillation is validated, small networks can behave similar to the large models.
+
 Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
 ![nn_mobileNet](https://user-images.githubusercontent.com/42667259/89632812-20d01c80-d8a3-11ea-986a-146a3a132413.png)
 
 - v2, Mark Handler, Andrew Howard et al.
+
 
 Refer to paper [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://openaccess.thecvf.com/content_cvpr_2018/html/Sandler_MobileNetV2_Inverted_Residuals_CVPR_2018_paper.html)
 
