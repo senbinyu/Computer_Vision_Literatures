@@ -1,5 +1,6 @@
 # Model Compression and Acceleration
-#### This is a collection of papers focused on model compression and tricks, which are used for the speedup of calculations. If you want to know the area fastly, recommand to read the review papers, which can give you a whole picture.
+#### This is a collection of papers focused on model compression and tricks, which are used for the speedup of calculations. If you want to know the area fastly, recommand to read the review papers, which can give you a whole picture. As shown below, model compression has different techniques, here I will mainly list the neural network part. 
+![model_compression_techs](https://user-images.githubusercontent.com/42667259/89690882-e187e700-d907-11ea-91bb-f9bc1247e81b.png)
 
 ## 1. Review papers
 Here are several papers recommanded for the model compression and acceleration. 
@@ -21,8 +22,10 @@ Refer to paper [Deep learning on mobile devices: a review](https://www.spiedigit
 Refer to paper [A comprehensive survey on model compression and acceleration](https://link.springer.com/content/pdf/10.1007/s10462-020-09816-7.pdf)
 
 ## 2. Model compression and speedup approaches
-Papers above have some overlapping areas, so in this section, I listed the survey into the following categories.
+Papers above have some overlapping areas, so in this section, I listed the survey into the following categories. Apart from the approaches below, Cheng Jian et al. also tried to speed up through the hardware accelerators. Most of these methods are independently designed and complementary to each other. For example, transferred layers and parameter pruning & quantization can be deployed together. Another example is that, model quantization & binarization can be used together with low-rank approximations to achieve further compression/speedup.
+
 ![compression_approaches](https://user-images.githubusercontent.com/42667259/89688580-c8c90280-d902-11ea-82b1-72fdd6006b20.png)
+
 ### 2.1 Parameter pruning and quantization
 
 
