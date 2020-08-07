@@ -25,6 +25,11 @@ Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile V
 
 ### shuffleNet
 
-### MNASNet
+Refer to paper []()
+
+### MNASNet, Tan Mingxing et al.
+mobile NASNet, 1.5x speed of mobileNet-v2
+
+Refer to paper [MnasNet: Platform-Aware Neural Architecture Search for Mobile](https://openaccess.thecvf.com/content_CVPR_2019/html/Tan_MnasNet_Platform-Aware_Neural_Architecture_Search_for_Mobile_CVPR_2019_paper.html)
 
 ### 
