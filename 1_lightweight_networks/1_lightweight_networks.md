@@ -62,9 +62,17 @@ Refer to paper [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://
 ![nn_mobileNet_v2](https://user-images.githubusercontent.com/42667259/89647200-75809100-d8bd-11ea-973c-89528028c09d.png)
 
 - v3, Andrew Howard et al.
+We want to reduce the parameters amounts, as well as the MAdds, inference time. MobileNet-v3 is much better than v2 in speed and accuracy. For example, MobileNetV3-Large is 3.2% more accurate on ImageNet classification while reducing latency by 20% compared to MobileNetV2.
 
+1. MobileNet-v2 + SE block (see figure below), SE learns the importance of each channel. 
+
+2. blend automated search with novel architecture advances to build effective models. NAS for block-wise search and NetAdapt for Layer-wise Search, which are platform-aware. In layer-wise search, use smaller expansion size.
+
+3. network improvement, i.e., redesigning expensive layers. Some of the last layers are expensive. Modify them to reduce the latency while maintaining the accuracy. Hard swish activation func is used in the second half (deeper layers) to deal with the nonlinearity, imporving accuracy.
 
 Refer to paper [Searching for mobilenetv3](https://openaccess.thecvf.com/content_ICCV_2019/html/Howard_Searching_for_MobileNetV3_ICCV_2019_paper.html)
+![nn_mobileNet_v3](https://user-images.githubusercontent.com/42667259/89651436-399cfa00-d8c4-11ea-8fa8-918e069c17b6.png)
+![nn_mobileNet_v3_2](https://user-images.githubusercontent.com/42667259/89652091-3bb38880-d8c5-11ea-9a0c-f0bde0ff9fc7.png)
 
 ### shuffleNet
 - v1, 
