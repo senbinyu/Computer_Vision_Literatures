@@ -75,7 +75,10 @@ Refer to paper [Searching for mobilenetv3](https://openaccess.thecvf.com/content
 ![nn_mobileNet_v3_2](https://user-images.githubusercontent.com/42667259/89652091-3bb38880-d8c5-11ea-9a0c-f0bde0ff9fc7.png)
 
 ### shuffleNet
-- v1, 
+- v1, Zhang Xiangyu
+In ResNeXt, group conv (several channels) is used; in mobileNet, it is an extreme case, each channel is a group, is conved separately. But the relationship between different channels has not been utilized. 
+
+1. 
 
 Refer to paper [ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices](https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.html)
 
