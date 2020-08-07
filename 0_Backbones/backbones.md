@@ -1,6 +1,15 @@
 Backbones are the most important architecture for the neural networks. 
 
-## 1. Reviews
+## 1. Review papers
+Many other review papers focused on specific areas are collected under specific topics file.
+
+- Neena Aloysius and Geetha M, A Review on Deep Convolutional Neural Networks, 2017
+
+A bit old and not include many state-of-art research, refer to paper [A Review on Deep Convolutional Neural Networks](https://ieeexplore.ieee.org/abstract/document/8286426/)
+
+- Elhassouny, Azeddine et al, Trends in deep convolutional neural Networks architectures: a review, 2019.
+
+**Recommand**. Reviewed most of the CNN backbones, refer to paper [Trends in deep convolutional neural Networks architectures: a review](https://ieeexplore.ieee.org/abstract/document/8807741?casa_token=NzJx5O4redQAAAAA:OhEtsKL2x8ryRkb21GgeTu9glwuesljMYIWUeYMt7dPyY2vOhrJk8kO0Qh1lMgjRNiC7T2OCaQ)
 
 ## 2. History
 
