@@ -19,7 +19,10 @@ Refer to paper [Deep learning on mobile devices: a review](https://www.spiedigit
 
 Refer to paper [A comprehensive survey on model compression and acceleration](https://link.springer.com/content/pdf/10.1007/s10462-020-09816-7.pdf)
 
-## 2. Model compression and speedup methods
+## 2. Model compression and speedup approaches
 Papers above have some overlapping areas, so in this section, I listed the survey into different categories.
+
+### 2.1 Parameter pruning and quantization
+
 
 
