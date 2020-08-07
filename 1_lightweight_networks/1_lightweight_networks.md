@@ -1,7 +1,7 @@
 ##### collections of some popular light neural networks architectures design, which are widely used in mobiles etc.
 
 ## 1. Review papers
-Review papers of lightweight  networks usually include the model compression and pruing tricks, which are further detailed described in ../2_model_speedup
+Review papers of lightweight  networks usually include the model compression and pruing tricks, which are further detailed described in ../2_model_speedup.md
 
 - Cheng Yu et al., A survey of model compression and acceleration for deep neural networks, 2017. 
 
@@ -96,6 +96,18 @@ FLOPs is only one of many factors to influence the model speed etc. Here, the au
 
 Refer to paper [ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Design](https://openaccess.thecvf.com/content_ECCV_2018/html/Ningning_Light-weight_CNN_Architecture_ECCV_2018_paper.html)
 ![nn_shuffleNet_v2](https://user-images.githubusercontent.com/42667259/89663337-b5ec0900-d8d5-11ea-8964-074fb5f2693b.png)
+
+### condenseNet, Huang Gao et al.
+denseNet is good, but there is a lot rebundancy in CNN. Pruning some rebundant branches (useless feature maps) can achieve the similar accuracy and much faster.
+
+1. group conv, like ResNeXt, shuffleNet, to reduce parameters amounts. Special thing here is learning group conv in the training stage (1 * 1 L-conv in following figure b). permute here is like the shuffle operation in shuffleNet, to maintain the diversity of the input channels.
+
+2. From the start of training, weights pruing, as shown in the following figure (b), with group conv together. After condesening stage 2 (choose the group), it is the optimization stage. In optimization stage, pruning the unimportant features. j-th channel connects with g-th group, calculate their averaged weights and determine which connections can be remained. 要衡量第j个channel的输入feature map和卷积核的第g个group之间的重要性，那么就用j和g这个group之间的所有连接（g这个group有多少个卷积核，就有多少个连接）的权重的平均绝对值衡量重要性，本质上就是求权值的L1范数.
+
+3. on cifar-10, cifar-100, ImageNet, performs better (faster and more accurate) than many cnn architectures, e.g., shuffleNet-v1, mobileNet, ResNet etc. 
+
+Refer to paper [Condensenet: An efficient densenet using learned group convolutions](https://openaccess.thecvf.com/content_cvpr_2018/html/Huang_CondenseNet_An_Efficient_CVPR_2018_paper.html)
+![nn_condensenet](https://user-images.githubusercontent.com/42667259/89667276-2564f700-d8dc-11ea-8ac7-50e4947386e4.png)
 
 ### MNASNet, Tan Mingxing et al.
 mobile NASNet, 1.8x speed of mobileNet-v2 on ImageNet with 78ms inference latency on a pixel phone. But the search of architecture is computation costly.
