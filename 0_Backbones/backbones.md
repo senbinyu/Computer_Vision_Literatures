@@ -95,7 +95,7 @@ Based on Inception-v3, if we do not want to design the inception architecture ev
 1. extreme inception. from equivalent inception structure, now only calculate a part of the channels, (group = xx in pytorch).
 
 2. depthwise separable convolution (originally from a phd thesis: Laurent Sifre, Rigid-Motion Scattering For Image Classification), save parameters greatly. By separating features evenly, the parameters in figure below can be m * k + 3 * 3 * k, m is the features, k is the kernels number.
-Details can also see mobileNet in ../03_Lightweight network.
+Details can also see mobileNet in ../1_lightweight_network.
 
 Refer to paper [Xception: Deep Learning with Depthwise Separable Convolutions](https://arxiv.org/abs/1610.02357)
 ![nn_xception](https://user-images.githubusercontent.com/42667259/89560940-17e63900-d818-11ea-95d1-bb73602a132c.png)
