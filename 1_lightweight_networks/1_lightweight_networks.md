@@ -28,8 +28,10 @@ Refer to paper [MobileNets: Efficient Convolutional Neural Networks for Mobile V
 Refer to paper []()
 
 ### MNASNet, Tan Mingxing et al.
-mobile NASNet, 1.5x speed of mobileNet-v2
+mobile NASNet, 1.8x speed of mobileNet-v2 on ImageNet with 78ms inference latency on a pixel phone. But the search of architecture is computation costly.
+
+1. use a reinforcement learning approach to search the architecture, and the accuracy is mainly dependent on the design of architecture without modifing the parameters a lot. This indicates that the searched architecture is good. But the architecture is similar to MobileNet-v2, which also implies that human design is also impressive, although the search sturcture is mimicing the mobileNet. 说明人工设计的网络架构也是非常精简有效的
 
 Refer to paper [MnasNet: Platform-Aware Neural Architecture Search for Mobile](https://openaccess.thecvf.com/content_CVPR_2019/html/Tan_MnasNet_Platform-Aware_Neural_Architecture_Search_for_Mobile_CVPR_2019_paper.html)
+![nn_mnasnet](https://user-images.githubusercontent.com/42667259/89627578-64bf2380-d89b-11ea-8cea-bcd923ace03b.png)
 
-### 
