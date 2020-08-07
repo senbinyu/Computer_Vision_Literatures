@@ -1,6 +1,9 @@
 ##### collections of some popular light neural networks architectures design, which are widely used in mobiles etc.
 
-## 1. Review
+## 1. Review papers
+Review papers of lightweight  networks usually include the model compression and pruing tricks, which are detailed described in ../2_model_compression_speedup
+
+Refer to paper [Lightweight Network Research Based on Deep Learning: A Review](https://ieeexplore.ieee.org/abstract/document/8483963?casa_token=Ro1rJdUIkXoAAAAA:GukzNyQi38qOA4v-B6394PvpFp6R3j0tvvXDNCKnIPkYf5EEA_GtTSfWdvK19WS9Zl4lgP5-mA)
 
 ## 2. Collections of varying networks
 
