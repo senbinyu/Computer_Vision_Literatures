@@ -85,9 +85,17 @@ In ResNeXt, group conv (several channels) is used; in mobileNet, it is an extrem
 Refer to paper [ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices](https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.html)
 ![nn_shuffleNet](https://user-images.githubusercontent.com/42667259/89659653-740c9400-d8d0-11ea-8f05-d7627fb2afe2.png)
 
-- v2, 
+- v2, Ma Ningning, Zhang Xiangyu
+FLOPs is only one of many factors to influence the model speed etc. Here, the authors proposed more practical guidelines for the efficient cnn architecture design. 
+
+1. Use Memory Access Cost (MAC parameter) to measure the memory cost. MAC needs to be smaller to achive higher speed. There are some observations: channel numbers try to be the same (bottleNeck in shuffleNet-v1 counters this); group *g* can not be too large (try more groups in shuffleNet-v1); Network fragmentation reduces degree of parallelism (mobileNet v2 goes against); Element-wise operations are non-negligible (depthwise use ReLU6 also contradicts).
+
+2. Therefore, did some modifications as shown in the following figure. These operations are all following the guidelines above. For instance, repalce the 1 * 1 group conv with 1 * 1 conv again to follow the second rule, channel number try to be kept same. Under these guidelines, shuffleNet-v2 has got satisfactory results both on accuracy and speed.
+
+3. relate to densetNet and condenseNet. half of feature channels (when c′ = c/2) directly go through the block and join the next block, like the *feature reuse* in denseNet and condenseNet. Both of them are supporting that the connections between the adjacent layers are stronger than the others
 
 Refer to paper [ShuffleNet V2: Practical Guidelines for Efficient CNN Architecture Design](https://openaccess.thecvf.com/content_ECCV_2018/html/Ningning_Light-weight_CNN_Architecture_ECCV_2018_paper.html)
+![nn_shuffleNet_v2](https://user-images.githubusercontent.com/42667259/89663337-b5ec0900-d8d5-11ea-8964-074fb5f2693b.png)
 
 ### MNASNet, Tan Mingxing et al.
 mobile NASNet, 1.8x speed of mobileNet-v2 on ImageNet with 78ms inference latency on a pixel phone. But the search of architecture is computation costly.
