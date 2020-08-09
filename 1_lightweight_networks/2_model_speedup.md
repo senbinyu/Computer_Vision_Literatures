@@ -27,6 +27,23 @@ Papers above have some overlapping areas, so in this section, I listed the surve
 ![compression_approaches](https://user-images.githubusercontent.com/42667259/89688580-c8c90280-d902-11ea-82b1-72fdd6006b20.png)
 
 ### 2.1 Parameter pruning and quantization
+Here I listed some classic papers for different approaches.
+
+Early works [1] showed that network pruning and quantization are effective in reducing the network complexity and addressing the over-fitting problem. After found that pruning can bring regularization to neural networks and hence improve generalization, it has been widely studied to compress DNNs. 早期工作发现模型瘦身能抑制过拟合，之后将其用于压缩DNN. 
+
+[1] Gong et al., 2014, [Compressing deep convolutional networks using vector quantization](https://arxiv.org/abs/1412.6115)
+#### 2.1.1 Pruning
+1. Fine-grained pruning (细粒度剪枝). Han et al. [2] proposed a deep compression framework to compress DNNs in three steps: pruning, quantization, and Huffman encoding. By using this method, AlexNet could be compressed by 35-fold without drops in accuracy. However, the compressed model has an accuracy drop.  Guo et al. [3] proposed a dynamic network surgery framework consisting of two operations: pruning and splicing. The pruning operation aims to prune those unimportant parameters while the splicing operation aims to recover the incorrectly pruned connections. Their method requires fewer training epochs and achieves a better compression ratio. (这是一种non-structure的压缩行为，因此压缩效率不高，且在硬件上的运行效率也不高)
+
+[2] Han et al., 2015, [Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding](https://arxiv.org/abs/1510.00149)
+[3] Guo et al., 2016, [Dynamic network surgery for efficient dnns](http://papers.nips.cc/paper/6165-dynamic-network-surgery-for-efficient-dnns.pdf)
+
+2. Filter-level pruning.
+Fiter is connected to channels number, He et al. [4] introduced a selection weight \beta for each filter and then added sparse constraints on \beta. ()
+
+[4] He et al., 2017, [Channel Pruning for Accelerating Very Deep Neural Networks](https://openaccess.thecvf.com/content_ICCV_2017/papers/He_Channel_Pruning_for_ICCV_2017_paper.pdf)
+
+
 
 
 
