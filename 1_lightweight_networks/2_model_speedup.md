@@ -78,5 +78,10 @@ the original model.
 ![low_rank](https://user-images.githubusercontent.com/42667259/89735628-4eb08f00-da64-11ea-8232-4bcb1f96cc84.png)
 
 ### 2.3 Compact network design
+To directly design a lightweight network is a parallel approach in the recent years. More details of lightweight networks, such as mobileNet v1, v2, v3, shuffleNet v1, v2, etc are described in ../1_lightweight_networks.md. Conclusively, there are sevaral trends in the designing of lightweight networks. Factorizing Convolutions: replace large kernels with more smaller kernels; group convolution; depthwise separable convolution; bottle-neck design; Neural Architecture Search (for mobileNet-v3).
+
+### 2.4 Distillation (Teacher-student model)
+
+
 
 
