@@ -39,11 +39,34 @@ Early works [1] showed that network pruning and quantization are effective in re
 [3] Guo et al., 2016, [Dynamic network surgery for efficient dnns](http://papers.nips.cc/paper/6165-dynamic-network-surgery-for-efficient-dnns.pdf)
 
 2. Filter-level pruning.
-Fiter is connected to channels number, He et al. [4] introduced a selection weight \beta for each filter and then added sparse constraints on \beta. ()
+Fiter is connected to channels number, He et al. [4] introduced a selection weight \beta for each filter and then added sparse constraints on \beta. (其实mobileNet-v1中也有类似的行为，将通道数目缩减一些，从而进行网络瘦身)
 
 [4] He et al., 2017, [Channel Pruning for Accelerating Very Deep Neural Networks](https://openaccess.thecvf.com/content_ICCV_2017/papers/He_Channel_Pruning_for_ICCV_2017_paper.pdf)
 
+3. Vector-level and kernel-level prunings. 
+There is little work. Anwar et al. [5] first explored kernel-level pruning, and then proposed an intra-kernel strided pruning method, which prunes a sub-vector in a fixed stride. Mao et al. [6] explored different granularity levels in pruning, and found that vector-level pruning takes up less storage than fine-grained pruning because vector-level pruning requires fewer indices to indicate the pruned parameters. It is more like a structural pruning than fine-grained pruning and more friendly to memory access and thus more efficient in hardware implementations. 这种方法更像是组织（成批型）的剪枝方法，简单有效，在硬件上更有效。
 
+[5] Anwar et al., 2017, [Structured pruning of deep convolutional neural networks](https://dl.acm.org/doi/pdf/10.1145/3005348)
+[6] Mao et al., 2017, [Exploring the regularity of sparse structure in convolutional neural networks](https://arxiv.org/pdf/1705.08922.pdf)
 
+4. Group-level pruning.
+Lebedev et al. [7] proposed the group-wise brain damage approach, which prunes the weight matrix in a group-wise fashion (shown in the following figure). Wen et al. [8] added a structured sparsity regularizer on each layer to reduce trivial filters, channels or even layers. 
+![pruning_groupwise](https://user-images.githubusercontent.com/42667259/89734073-07250580-da5a-11ea-815a-8e1d544a7409.png)
 
+[7] Lebedev et al., 2016, [Fast ConvNets using groupwise brain damage](https://openaccess.thecvf.com/content_cvpr_2016/papers/Lebedev_Fast_ConvNets_Using_CVPR_2016_paper.pdf)
+[8] Wen et al. 2016, [Learning structured sparsity in deep neural networks](https://papers.nips.cc/paper/6504-learning-structured-sparsity-in-deep-neural-networks.pdf)
 
+#### 2.1.2 Quantization
+1. Scalar and vector quantization.
+By using scalar or vector quantization, the original data can be represented by a codebook and a set of quantization codes with quantization centers. Of course, the number of quantization centers is always less than the original data to achieve compression. Gong et al. [9] used k-means algorithm to compress the parameters. Wu et al. [10] proposed using the PQ algorithm to simultaneously accelerate and compress convolutional neural networks. "During the inference phase, a look-up table was built by precomputing the inner product between feature map patches and codebooks, and then the output feature map can be calculated by simply accessing the lookup table. " (4 to 6 times speed up,huffman编码也有类似的效果，查表法在我博士工作中也经常使用)
+
+[9] Gong et al., 2014 [Compressing deep convolutional networks using vector quantization](https://arxiv.org/pdf/1412.6115.pdf)
+[10] Wu et al., 2016 [Quantized convolutional neural networks for mobile devices](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Wu_Quantized_Convolutional_Neural_CVPR_2016_paper.pdf)
+
+2. Fixed-point quantization
+Here are many researches studying the bits on the CNN performance. From 8-bit to 16, 32 bit, it seems the convergece becomes better. But recentlly, Dettmers et al. [11] found that 8-bit fixed point quantization to speed up convergence. As an extreme case, the binaryConnect method with weights of +1 and -1 can even outperforms some networks. Rastegari et al. [12] proposed the binary weight network (BWN), which was among the earliest work that achieved good results on the large ImageNet dataset. 点位的减少使得模型在计算时可以占用更少的空间。值得注意的是，二值网络有时甚至能表现得比某些网络更强，这也有可能是因为其相当于加入了正则化，使得模型的泛化能力更强了
+
+[11] Dattmers et al., 2015, [8-bit approximations for parallelism in deep learning](https://arxiv.org/pdf/1511.04561.pdf):)
+[12] Rastegari et al., 2016, [XNORNet: ImageNet classification using binary convolutional neural networks](https://arxiv.org/pdf/1603.05279.pdf?source=post_page---------------------------)
+
+### 2.2 
