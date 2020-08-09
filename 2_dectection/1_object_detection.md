@@ -23,9 +23,12 @@ Here are some collections of review papers and some classic reseach papers focus
 ### 3.3 Keypoints based method
 
 
-## 4. Feature representing 
-### 4.1 multi-scale 
+## 4. Feature representing (feature fusion)
+### 4.1 multi-scale feature learning
 
+### 4.2 Region feature encoding
+
+### 4.3 Deformable feature learning
 
 ## 5. Learning strategy
 ### 5.1 training stage
@@ -38,10 +41,10 @@ Here are some collections of review papers and some classic reseach papers focus
 ### 6.1 Face detection
 
 
-### Pedestrain detection
+### 6.2 Pedestrain detection
 
 
-### Text detection
+### 6.3 Text detection
 
 
 ## 7. Datasets
