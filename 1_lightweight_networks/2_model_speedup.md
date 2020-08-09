@@ -80,8 +80,13 @@ the original model.
 ### 2.3 Compact network design
 To directly design a lightweight network is a parallel approach in the recent years. More details of lightweight networks, such as mobileNet v1, v2, v3, shuffleNet v1, v2, etc are described in ../1_lightweight_networks.md. Conclusively, there are sevaral trends in the designing of lightweight networks. Factorizing Convolutions: replace large kernels with more smaller kernels; group convolution; depthwise separable convolution; bottle-neck design; Neural Architecture Search (for mobileNet-v3).
 
-### 2.4 Distillation (Teacher-student model)
+### 2.4 Knowledge distillation (Teacher-student network)
+The knowledge learned by the bigger cumbersome network (teacher model) trained on large dataset which can generalize well on unseen data is transferred to a smaller and lighter network known as a student model [14]. Student loss function, L=CE(y,p) + \alpha CE(q,p), here y is the hard label of samples, p is the student predictions, q is the teacher model predictions, which uses a softmax-T as the soft target. Remoro et al. [15] proposed FitNets, which was inspired by Hinton et al. They further extended the idea for a thinner and deeper student model. Apart from the outputs, the intermediate representations learned by the teacher model are provided as hints to improve the student model performance.
 
+[14] Hinton et al., 2015, [Distilling the Knowledge in a Neural Network](https://arxiv.org/abs/1503.02531)
+[15] Remoro et al., 2014, [Fitnets: Hints for thin deep nets](https://arxiv.org/pdf/1412.6550.pdf?source=post_page---------------------------)
+![knowledge_distillation](https://user-images.githubusercontent.com/42667259/89736766-1b71fe00-da6c-11ea-9f71-c7f0f14bad70.png)
 
+### 2.5 Hardware accelerator
 
 
