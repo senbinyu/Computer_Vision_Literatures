@@ -1,6 +1,6 @@
 Here are some collections of review papers and some classic reseach papers focused on object dectection. 
 
-## 1. Review papers
+# 1. Review papers
 
 - Zou et al., 2019, [Object Detection in 20 Years: A Survey](https://arxiv.org/abs/1905.05055) University of Michigan, *Recommand*
 
@@ -10,42 +10,42 @@ Here are some collections of review papers and some classic reseach papers focus
 
 - Zhao et al. 2019, [Object detection with deep learning: A review](https://ieeexplore.ieee.org/abstract/document/8627998/), Hefei University of Technology
 
-## 2. Detection paradigms
-### 2.1 Two-stage detectors
+# 2. Detection paradigms
+## 2.1 Two-stage detectors
 
-### 2.2 One-stage detectors
+## 2.2 One-stage detectors
 
-## 3. Detection proposal generations
-### 3.1 Traditional computer vision methods
+# 3. Detection proposal generations
+## 3.1 Traditional computer vision methods
 
-### 3.2 Anchor-based method
+## 3.2 Anchor-based method
 
-### 3.3 Keypoints based method
-
-
-## 4. Feature representing (feature fusion)
-### 4.1 multi-scale feature learning
-
-### 4.2 Region feature encoding
-
-### 4.3 Deformable feature learning
-
-## 5. Learning strategy
-### 5.1 training stage
+## 3.3 Keypoints based method
 
 
-### 5.2 testing stage
+# 4. Feature representing (feature fusion)
+## 4.1 multi-scale feature learning
+
+## 4.2 Region feature encoding
+
+## 4.3 Deformable feature learning
+
+# 5. Learning strategy
+## 5.1 training stage
 
 
-## 6 Applications
-### 6.1 Face detection
+## 5.2 testing stage
 
 
-### 6.2 Pedestrain detection
+# 6 Applications
+## 6.1 Face detection
 
 
-### 6.3 Text detection
+## 6.2 Pedestrain detection
 
 
-## 7. Datasets
+## 6.3 Text detection
+
+
+# 7. Datasets
 
