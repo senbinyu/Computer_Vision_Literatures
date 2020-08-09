@@ -69,4 +69,14 @@ Here are many researches studying the bits on the CNN performance. From 8-bit to
 [11] Dattmers et al., 2015, [8-bit approximations for parallelism in deep learning](https://arxiv.org/pdf/1511.04561.pdf):)
 [12] Rastegari et al., 2016, [XNORNet: ImageNet classification using binary convolutional neural networks](https://arxiv.org/pdf/1603.05279.pdf?source=post_page---------------------------)
 
-### 2.2 
+### 2.2 Low-rank approximation
+Convolution operations contribute the bulk of most computations in deep DNNs, thus reducing the convolution layer would improve the compression rate as well as the overall speedup. For instance, we have w * h * c * n conv kernel, parameters corresponds to kernel width, kernel height, and the numbers of input and output channels. Since a conv layer may have much abundant infomation, we do not need to use conv directly, we can use SVD principle to decompose them into low-ranked matrix. Of course, there are varying methods to decompose from different parameters. For example, Zhang et al. replaced the filter by two filter banks: one consisting of d filters of shape w · h · c and the other composed of n filters of shape 1 × 1 · d, where d represents the rank of the decomposition; i.e., the n filters are linear combinations of the first d filters. (3 times speed up but 1.66% higher top-5 error). But the computation is expensive since decomposition operation; and we have to perform low-rank layer-by layer as different layers have different information; and it also requires extensive model retraining to achieve convergence when compared to
+the original model.
+如果一个网络中所含有价值的信息量并没有那么多，那么相当于参数矩阵的秩r比较小，所以原矩阵m * n可以分解成m * r和r * n矩阵（类似于SVD分解），因为r<<m or n，所以其参数量大大缩小，这也是下图所示的原理。但此法因为要每层进行分解，计算量大，而且还需要retraining以达到收敛，这些都限制了此法的广泛应用。
+
+[13] Zhang et al., 2015 [Accelerating very deep convolutional networks for classification and detection](https://ieeexplore.ieee.org/abstract/document/7332968)
+![low_rank](https://user-images.githubusercontent.com/42667259/89735628-4eb08f00-da64-11ea-8232-4bcb1f96cc84.png)
+
+### 2.3 Compact network design
+
+
