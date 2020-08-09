@@ -88,5 +88,17 @@ The knowledge learned by the bigger cumbersome network (teacher model) trained o
 ![knowledge_distillation](https://user-images.githubusercontent.com/42667259/89736766-1b71fe00-da6c-11ea-9f71-c7f0f14bad70.png)
 
 ### 2.5 Hardware accelerator
+![hardware_accuracy](https://user-images.githubusercontent.com/42667259/89737064-81f81b80-da6e-11ea-9404-8ee4a0cc5d9d.png)
+#### 2.5.1 CPU and GPU
+CPUs can be cumbersome for building state-of-the-art deep learning models when the training data is very large, they are a valid option for training or adapting models to small amounts of data and to deploy pre-built deep learning models. The obvious advantage of deploying mobile deep learning on a CPU is that CPUs are available for
+most tablets and mobile phones.
 
+GPU contains thousands of repetitive small cores, making it much more efficient to do certain types of repetitive computations on matrices than general purpose CPUs. The NVIDIA GPUs are very useful for machine learning engineers, as they provides a powerful programming platform and application programming interface (API) called Compute Unified Device Architecture (CUDA).
+
+#### 2.5.2 FPGA
+While the CPU is made for extremely general purpose computation, and an ASIC is almost made exclusively for a specific application, the FPGA lies in between. At
+the basic level, FPGAs use flip-flop circuits to implement sequential logic functions and table look-ups, i.e. memory circuit to implement combinational logic function. The logic functions are implemented by programming memory, which also controls switch circuit connections, thus FPGAs do not need to explicitly perform the logic operation once it is programmed. 
+
+#### 2.5.3 ASIC
+The ASIC goes one step further than the FPGA to design and fabricate specific chips for an application. It has the potential to achieve even better SWAP, but at the cost of long development time. Building ASICs for mobile machine learning and artificial intelligence has a very long history. TPU is one kind of ASIC developed by Google Inc.
 
