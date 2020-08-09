@@ -8,6 +8,6 @@ Here are some collections of review papers and some classic reseach papers focus
 
 - Wu et al., 2020, [Recent Advances in Deep Learning for Object Detection](https://www.sciencedirect.com/science/article/pii/S0925231220301430), Singapore Management University
 
-- Zhao et al. 2019, [Object detection with deep learning: A review](https://ieeexplore.ieee.org/abstract/document/8627998/)
+- Zhao et al. 2019, [Object detection with deep learning: A review](https://ieeexplore.ieee.org/abstract/document/8627998/), Hefei University of Technology
 
 ## 2. Classic papers
