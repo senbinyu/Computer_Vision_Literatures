@@ -10,4 +10,39 @@ Here are some collections of review papers and some classic reseach papers focus
 
 - Zhao et al. 2019, [Object detection with deep learning: A review](https://ieeexplore.ieee.org/abstract/document/8627998/), Hefei University of Technology
 
-## 2. Classic papers
+## 2. Detection paradigms
+### 2.1 Two-stage detectors
+
+### 2.2 One-stage detectors
+
+## 3. Detection proposal generations
+### 3.1 Traditional computer vision methods
+
+### 3.2 Anchor-based method
+
+### 3.3 Keypoints based method
+
+
+## 4. Feature representing 
+### 4.1 multi-scale 
+
+
+## 5. Learning strategy
+### 5.1 training stage
+
+
+### 5.2 testing stage
+
+
+## 6 Applications
+### 6.1 Face detection
+
+
+### Pedestrain detection
+
+
+### Text detection
+
+
+## 7. Datasets
+
