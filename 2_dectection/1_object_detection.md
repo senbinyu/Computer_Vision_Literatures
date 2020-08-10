@@ -171,8 +171,8 @@ There are four categories of multi-scale feature learning
 3. Integrated features: Another approach is to construct a single feature map by combining features in multiple layers。By fusing spatially rich shallow layer features and semanticrich deep layer features, the new constructed features contain rich information and thus can detect objects at different scales. Bell et al. [2] proposed Inside-Outside Network (ION) which cropped region features from different layers via ROI Pooling [38], and combined these multi-scale region features for the final prediction. 和2中不同的是，这是先融合再进行预测，正好反过来
 4. Feature pyramid: To combine the advantage of Integrated Features and Prediction Pyramid, Feature Pyramid Network (FPN) [3] integrated different scale features with lateral connections in a top-down fashion to build a set of scale invariant feature maps, and multiple scale-dependent classifiers were learned on these feature pyramids. Specifically, the deep semantic-rich features were used to strengthen the shallow spatially-rich features. These top-down and lateral features were combined by element-wise summation or concatenation, with small convolutions reducing the dimensions. FPN在原先从浅层到深层基础上，反向添加一个从深层到浅层的feature map，由此可以用深层的语义特征来加强浅层的空间特征。
 
-[1] Singh et al., 2018, [An analysis of scale invariance in object detection snip](https://openaccess.thecvf.com/content_cvpr_2018/html/Singh_An_Analysis_of_CVPR_2018_paper.html)
-[2] Bell et al., 2016, [Inside-outside net: Detecting objects in context with skip pooling and recurrent neural networks](https://openaccess.thecvf.com/content_cvpr_2016/papers/Bell_Inside-Outside_Net_Detecting_CVPR_2016_paper.pdf)
+[1] Singh et al., 2018, [An analysis of scale invariance in object detection snip](https://openaccess.thecvf.com/content_cvpr_2018/html/Singh_An_Analysis_of_CVPR_2018_paper.html)  
+[2] Bell et al., 2016, [Inside-outside net: Detecting objects in context with skip pooling and recurrent neural networks](https://openaccess.thecvf.com/content_cvpr_2016/papers/Bell_Inside-Outside_Net_Detecting_CVPR_2016_paper.pdf)  
 [3] Lin et al., 2017, [Feature Pyramid Networks for Object Detection](https://openaccess.thecvf.com/content_cvpr_2017/papers/Lin_Feature_Pyramid_Networks_CVPR_2017_paper.pdf)
 
 ![feature_pyramid](https://user-images.githubusercontent.com/42667259/89808014-c1d80500-db39-11ea-8be9-cc04e87a100c.png)
@@ -189,8 +189,8 @@ that in some cases context information may even harm the detection performance. 
 ## 3.4 Deformable feature learning
 A good detector should be robust to nonrigid deformation of objects. DeepIDNet [5] developed a deformable-aware pooling layer to encode the deformation information across different object categories. 
 
-[4] Cheng et al., 2018, [Revisiting rcnn: On awakening the classification power of faster rcnn](https://openaccess.thecvf.com/content_ECCV_2018/papers/Bowen_Cheng_Revisiting_RCNN_On_ECCV_2018_paper.pdf)
-[5] Ouyang et al., 2015, [Deepid-net: Deformable deep convolutional neural networks for object detection](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ouyang_DeepID-Net_Deformable_Deep_2015_CVPR_paper.pdf)
+[4] Cheng et al., 2018, [Revisiting rcnn: On awakening the classification power of faster rcnn](https://openaccess.thecvf.com/content_ECCV_2018/papers/Bowen_Cheng_Revisiting_RCNN_On_ECCV_2018_paper.pdf)  
+[5] Ouyang et al., 2015, [Deepid-net: Deformable deep convolutional neural networks for object detection](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ouyang_DeepID-Net_Deformable_Deep_2015_CVPR_paper.pdf)  
 [6]  Liu et al., 2018, [Structure inference net: Object detection using scene-level context and instance-level relationships](https://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_Structure_Inference_Net_CVPR_2018_paper.pdf)
 
 # 5 Applications
