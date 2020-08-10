@@ -161,7 +161,21 @@ Refer to paper [Adaptive object detection using adjacency and zoom prediction](h
 
 
 # 3. Feature representing (feature extraction and fusion)
+
+
 ## 3.1 multi-scale feature learning
+Detecting objects across large range of scales and aspect ratios is quite challenging on a single feature map. Specifically, shallow layer features with spatial-rich information have higher resolution and smaller receptive fields and thus are more suitable for detecting small objects, while semantic-rich features in deep layers are more robust to illumination, translation and have larger receptive fields (but coarse resolutions), and are more suitable for detecting large objects. 浅层包含更多位置信息，更小的视野，适合小物体检测；深层包含更丰富的语义信息，更大的视野，更适合大物体检测。
+
+There are four categories of multi-scale feature learning
+1. Image pyramid: An intuitive idea is to resize input images into a number of different scales (Image Pyramid) and to train multiple detectors, each of which is responsible for a certain range of scales. Singh et. al. [1] argued that single scale-robust detector to handle all scale objects was much more difficult than learning scale-dependent detectors with image pyramids. They proposed a novel framework Scale Normalization for Image Pyramids (SNIP) which trained multiple scale-dependent detectors and each of them was responsible for a certain scale objects. 不同尺寸的图片喂入到模型中进行训练，以来适应检测时需要的不同尺度，Signh认为单个尺度的不如多个尺度的训练
+2. Prediction pyramid: This is used in SSD, predictions were made from multiple layers, where each layer was responsible for a certain scale of objects.
+3. Integrated features: Another approach is to construct a single feature map by combining features in multiple layers
+
+[1] Sing et al., []()
+
+![feature_pyramid](https://user-images.githubusercontent.com/42667259/89808014-c1d80500-db39-11ea-8be9-cc04e87a100c.png)
+
+
 
 ## 3.2 Region feature encoding
 
