@@ -3,10 +3,6 @@
 - [2. Detection paradigms](#2-detection-paradigms)
   * [2.1 Two-stage detectors](#21-two-stage-detectors)
   * [2.2 One-stage detectors](#22-one-stage-detectors)
-- [3. Detection proposal generations](#3-detection-proposal-generations)
-  * [3.1 Traditional computer vision methods](#31-traditional-computer-vision-methods)
-  * [3.2 Anchor-based method](#32-anchor-based-method)
-  * [3.3 Keypoints based method](#33-keypoints-based-method)
 - [4. Feature representing (feature extraction and fusion)](#4-feature-representing--feature-extraction-and-fusion-)
   * [4.1 multi-scale feature learning](#41-multi-scale-feature-learning)
   * [4.2 Region feature encoding](#42-region-feature-encoding)
@@ -147,8 +143,12 @@ Previous are anchor-based methods, below I listed two anchor-free, keypoints-bas
 
 Refer to paper [Cornernet: Detecting objects as paired keypoints](https://openaccess.thecvf.com/content_ECCV_2018/html/Hei_Law_CornerNet_Detecting_Objects_ECCV_2018_paper.html)
 
-- CenterNet, Zhou et al., 2019, University of Texas
+- CenterNet, Zhou et al., 2019, University of Texas  
 CenterNet achieves the best speed-accuracy trade-off on the MS COCO dataset, with 28.1% AP at 142 FPS, 37.4% AP at 52 FPS, and 45.1% AP with multi-scale testing at 1.4 FPS. 
+1. anchor free, predict center (x, y) and offsets (dx, dy)
+2. downSample coefficient 4, no use of FPN, compared with SSD 16, which used FPN. 
+3. no need of a combinatorial grouping stage after keypoint detection (cornerNet needs), which significantly slows down each algorithm. 
+can not deal with some cases like overlapping closely, the centers will collapse together. 无法解决物体靠很近的情况，如果下采样后，中心点几乎重合，则无法预测。
 
 Refer to paper [Objects as points](https://arxiv.org/pdf/1904.07850.pdf)
 
