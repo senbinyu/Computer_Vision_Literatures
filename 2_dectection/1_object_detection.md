@@ -43,14 +43,26 @@ Here are some collections of review papers and some classic and state-of-art res
 
 # 2. Detection paradigms
 Two categories: two-stage vs one stage detectors  
-| Two-stage | one-stage |  
-| :---： | :----: |  
-| lower inference speed | faster inference speed |  
+
+[//]: # (This may be the most platform independent comment)
+<!--这些是注释文本，不会显示
+| Header Cell | Header Cell |
+| ------------- | ------------- |
+| Content Cell | Content Cell |
+| Content Cell | Content Cell |-->
+
+| Two-stage | one-stage |
+| ------- | -------- |
+| 1. a sparse set of proposals is generated; 2. the feature vectors of generated proposals are encoded by deep convolutional neural networks followed by making the object class predictions | consider all positions on the image as potential objects, and try to classify each region of interest as either background or a target object |
+| lower inference speed | faster inference speed |
+| state-of-art results on datasets | relatively poor performance |
 
 
 ## 2.1 Two-stage detectors
+Proposal generation + making predictions for these proposals.
 
-
+- R-CNN, Girshick et al. in 2014
+Pioneering two-stage object detector
 
 ## 2.2 One-stage detectors
 
