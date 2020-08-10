@@ -11,14 +11,11 @@
   * [4.1 multi-scale feature learning](#41-multi-scale-feature-learning)
   * [4.2 Region feature encoding](#42-region-feature-encoding)
   * [4.3 Deformable feature learning](#43-deformable-feature-learning)
-- [5. Learning strategy](#5-learning-strategy)
-  * [5.1 training stage](#51-training-stage)
-  * [5.2 testing stage](#52-testing-stage)
-- [6 Applications](#6-applications)
-  * [6.1 Face detection](#61-face-detection)
-  * [6.2 Pedestrain detection](#62-pedestrain-detection)
-  * [6.3 Text detection](#63-text-detection)
-- [7. Datasets](#7-datasets)
+- [5 Applications](#6-applications)
+  * [5.1 Face detection](#61-face-detection)
+  * [5.2 Pedestrain detection](#62-pedestrain-detection)
+  * [5.3 Text detection](#63-text-detection)
+- [6. Datasets](#7-datasets)
 
 ![taxonomy](https://user-images.githubusercontent.com/42667259/89758255-a6440e80-dae7-11ea-8ab1-b5cb6b679b17.png)
 Image classification aims to recognize semantic categories of objects in a given image. Object detection not only recognizes object categories, but also predicts the location of each object by a bounding box.
@@ -72,34 +69,46 @@ The weights from R-CNN pretrained from ImageNet, and R-CNN rejects huge number o
 
 Refer to paper [Rich feature hierarchies for accurate object detection and semantic segmentation](https://openaccess.thecvf.com/content_cvpr_2014/html/Girshick_Rich_Feature_Hierarchies_2014_CVPR_paper.html)
 
-- SPP-Net, He et al., 2015
+- SPP-Net, He et al., 2015  
 Use the idea of spatial pyramid pooling, to concate the features from different levels. Instead of cropping proposal regions and feeding into CNN model separately, SPP-net computes the feature map from the whole image using a deep convolutional network and extracts fixed-length feature vectors on the feature map by a Spatial Pyramid Pooling (SPP) layer. SPP layer did not back-propagate gradients to convolutional kernels and thus all the parameters before the SPP layer were frozen, which limits its learning capability.
 SPPNet理论上可以改进任何CNN网络，通过空间金字塔池化，使得CNN的特征不再是单一尺度的。但是SPPNet更适用于处理目标检测问题，首先是网络可以介绍任意大小的输入，也就是说能够很方便地多尺寸训练。其次是空间金字塔池化能够对于任意大小的输入产生固定的输出，这样使得一幅图片的多个region proposal提取一次特征成为可能。虽然能比RCNN取得更好的效果，但是SPP层无法将梯度反向传播给卷积核，参数无法更新，由此也限制了其学习能力。
 
 Refer to paper [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition]()
 
-- Fast R-CNN, Girshick, 2015
+- Fast R-CNN, Girshick, 2015  
 Use ROI pooling layer to extract region features from the whole image. ROI likes a special case of SPP, which only takes one scale N * N and can back-propagates to convolution kernels. After feature extraction, feature vectors were fed into a sequence of fully connected layers followed with classfication and regression branches. In Fast RCNN, the feature extraction, region classification and bounding box regression steps can all be optimized end-to-end, without extra cache space to store features (unlike SPP Net). Fast R-CNN achieved a much better detection accuracy than R-CNN and SPP-net, and had a better training and inference speed. Fast-RCNN 从提取特征到后面fc再到分类和回归是end-to-end的，方便梯度反向传播，这样无需额外的空间去储存特征，因此训练和推断都明显加快，同时还能比之前的模型有更好的精度。
 
 Refer to paper [Fast R-CNN](https://openaccess.thecvf.com/content_iccv_2015/html/Girshick_Fast_R-CNN_ICCV_2015_paper.html)
 
-- Faster-RCNN, Ren et al. 2017
+- Faster-RCNN, Ren et al. 2017  
 To avoid the low-lecel visual cues in selective search, Faster-RCNN adopted a novel proposal generator: Region Proposal Network (RPN) to generate proposals. The network slid over the feature map using an n × n sliding window, and generated a feature vector for each position. The feature vector was then fed into two sibling output branches, classification and regression of bbox. These results were then fed into the final layer for the actual object classification and bounding box localization. Faster R-CNN computed feature map of the input image and extracted region features on the feature map, which shared feature extraction computation across different regions. However, the computation was not shared in the region classification step, where each feature vector still needed to go through a sequence of FC
 layers separately. Faster R-CNN在计算feature map时，可以在不同region之间共享计算，但在region分类时，仍然无法贡献计算，需要多余的FC层来解决，而且这多余的FC层计算量又很大，使得速度暂时无法提高。
 
 Refer to paper [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](http://papers.nips.cc/paper/5638-faster-r-cnn-towards-real-time-object-detection-with-region-proposal-networks)
 
-- R-FCN, Dai et al., 2016
+- R-FCN, Dai et al., 2016  
 To make up the drawback that in Faster R-CNN, the computations can not be shared in the region classification step, Region-based Fully Convolutional Networks were proposed. R-FCN generated a Position Sensitive Score Map which encoded relative position information of different classes, and used a Position Sensitive ROI Pooling layer (PSROI Pooling) to extract spatial-aware region features by encoding each relative position of the target regions. 在pooling前做卷积，由于ROI pooling会丢失位置信息，故在pooling前加入位置信息，即指定不同score map是负责检测目标的不同位置。pooling后把不同位置得到的score map进行组合就能复现原来的位置信息。
 
 Refer to paper [R-fcn: Object detection via region-based fully convolutional networks](http://papers.nips.cc/paper/6465-r-fcn-object-detection-via-region-based-fully-convolutional-networks)
 
-- Mask-RCNN, He et al.
+- Mask-RCNN, He et al., 2017  
 Mask-RCNN is mainly proposed to solve the segmentation tasks, accompanied with the object detection ability. Details of Mask-RCNN and its followers Cascade R-CNN, Mask Scoring R-CNN, are described in ../3_segmentaion.
 
 Refer to paper [Mask R-CNN](https://openaccess.thecvf.com/content_iccv_2017/html/He_Mask_R-CNN_ICCV_2017_paper.html)
 
 ## 2.2 One-stage detectors
+One-stage detectors typically consider all positions on the image as potential objects, and try to classify each region of interest as either background or a target object.
+
+- OverFeat, Sermanet et al., 2013
+1. Object detection can be viewed as a ”multi-region classification” problem. The last FC layer was replaced with 1 * 1 conv to allow arbitrary input.
+2. The classification network output a grid of predictions on each region of the input to indicate the presence of an object. After identifying the objects, bounding box regressors were learned to refine the predicted regions based on the same DCNN features of classifierdetect multi-scale objects, the input image was resized into multiple scales which were fed into the network. Finally, the predictions across all the scales were merged together.
+end-to-end学习，只需将最后的FC层改为1 * 1 conv层，即可输出想要的，预测速度非常快，将FCN、offset pooling结合了起来，提高分类任务的精度，同时也让读者看到了CNN特征提取的强大用处。
+
+Refer to paper [OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks](https://arxiv.org/abs/1312.6229)
+
+The following figures shows several classic one-stage models used for object detection
+![one-stage](https://user-images.githubusercontent.com/42667259/89786010-8cbcba00-db1b-11ea-9c8f-be48a067d05a.png)
+- YOLO series, Redmon et al., 2016
 
 
 # 3. Detection proposal generations
@@ -117,22 +126,16 @@ Refer to paper [Mask R-CNN](https://openaccess.thecvf.com/content_iccv_2017/html
 
 ## 4.3 Deformable feature learning
 
-# 5. Learning strategy
-## 5.1 training stage
+
+# 5 Applications
+## 5.1 Face detection
 
 
-## 5.2 testing stage
+## 5.2 Pedestrain detection
 
 
-# 6 Applications
-## 6.1 Face detection
+## 5.3 Text detection
 
 
-## 6.2 Pedestrain detection
-
-
-## 6.3 Text detection
-
-
-# 7. Datasets
+# 6. Datasets
 
