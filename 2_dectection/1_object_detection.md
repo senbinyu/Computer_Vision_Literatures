@@ -21,7 +21,8 @@
 Image classification aims to recognize semantic categories of objects in a given image. Object detection not only recognizes object categories, but also predicts the location of each object by a bounding box.
 
 Here are some collections of review papers and some classic and state-of-art reseach papers focused on object dectection. The following figure shows the basic time line of classic research outputs.
-![timeLine](https://user-images.githubusercontent.com/42667259/89758241-9e846a00-dae7-11ea-9dfe-3487c1ebf90e.png)
+<!---![timeLine](https://user-images.githubusercontent.com/42667259/89758241-9e846a00-dae7-11ea-9dfe-3487c1ebf90e.png)--->
+![roadmap](https://user-images.githubusercontent.com/42667259/89792962-89c6c700-db25-11ea-88ff-b8a01299696a.png)
 
 
 # 1. Review papers
@@ -109,7 +110,41 @@ Refer to paper [OverFeat: Integrated Recognition, Localization and Detection usi
 The following figures shows several classic one-stage models used for object detection
 ![one-stage](https://user-images.githubusercontent.com/42667259/89786010-8cbcba00-db1b-11ea-9c8f-be48a067d05a.png)
 - YOLO series, Redmon et al., 2016
+- v1, image divided into 7 * 7 grids, each grid has several predicting boxes (only 2 in v1). For each cell, a prediction was made which comprised the following information: whether that location had an object, the bounding box coordinates and size (width and height), and the class of the object. Use NMS to remove the overlapping bbox on the same object. YOLO is fast, but the recall is low.
 
+- v2, + a series of strategies, shown in the following figure. Anchor boexs are added in v2, multi-scale detection is also added. Without anchor boxes our intermediate model gets 69.5 mAP with a recall of 81%. With anchor boxes our model gets 69.2 mAP with a recall of 88%. After adding all the strategies, the accuracy was improved significantly. Note, here is a new network, darknet-19. 
+YOLOv2 借鉴了很多其它目标检测方法的一些技巧，如 Faster R-CNN 的 anchor boxes, SSD 中的多尺度检测。YOLOv2 可以预测 13x13x5=845 个边界框，模型的召回率由原来的 81% 提升到 88%，mAP 由原来的 69.5% 降低到 69.2%. 召回率提升了 7%，准确率下降了 0.3%。除此之外，YOLOv2 在网络设计上做了很多 tricks, 使它能在保证速度的同时提高检测准确率，Multi-Scale Training 更使得同一个模型适应不同大小的输入，从而可以在速度和精度上进行自由权衡。
+![yolov2](https://user-images.githubusercontent.com/42667259/89789481-effd1b00-db20-11ea-8e56-b2b85ae11831.png)
+
+- v3, + darknet-53. use k-means to cluster 9 anchors. Much faster.
+![yolov3](https://user-images.githubusercontent.com/42667259/89791465-a8c45980-db23-11ea-920a-5f1316958d8c.png)
+
+- v4 + augmentation strategies, compound many tricks together and obtain efficient and accurate yolov4. Bag of freebies + Bag of specials + (CSPDarkNet53 + SPP + PANet(path-aggregation neck) + YOLOv3-head). *Recommand*
+
+Refer to paper v1 [You Only Look Once: Unified, Real-Time Object Detection](https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html)
+v2 [YOLO9000: Better, faster, stronger](https://openaccess.thecvf.com/content_cvpr_2017/html/Redmon_YOLO9000_Better_Faster_CVPR_2017_paper.html)
+v3 [YOLOv3: An Incremental Improvement](https://sci-hub.st/https://arxiv.org/abs/1804.02767)
+v4 Alexey Bochkovskiy et al., [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://sci-hub.st/https://arxiv.org/abs/2004.10934)
+
+- SSD series, SingleShot Mulibox Detector, Liu et al., 2016  
+1. With anchors, to overcome yolov1's problems: can not have accurate localization, low recall.
+2. extract different layers feature map for prediction, since shallow layer has detailed location info beneficial for the detection of small objects. several extra convolutional feature maps were added to the original backbone architecture in order to detect large objects and increase receptive fields. The final prediction was made by merging all detection results from different feature maps. 
+3. hard negative mining was applied for training in order to avoid huge number of negative proposals dominating training gradients. 简单负样本很多，会对loss贡献很大，导致训练无法很好进行，由此要多引入难负样本。SSD采用了hard negative mining，就是对负样本进行抽样，抽样时按照置信度误差（预测背景的置信度越小，误差越大）进行降序排列，选取误差的较大的top-k作为训练的负样本，以保证正负样本比例接近1:3。
+
+Refer to paper [Ssd: Single shot multibox detector](https://link.springer.com/chapter/10.1007/978-3-319-46448-0_2)
+
+- RetinaNet, Lin et al., 2017
+1. To overcome the class imbalance problem in one-stage detection, RetinaNet with focal loss FL(pt) = -(1-pt)^\gamma log(pt) is proposed. when \gamma is larger than 0, the easy negative samples (pt close to 1) loss will decreases exponentially. RetinaNet used focal loss which suppressed the gradients of easy negative samples instead of simply discarding them. Their proposed focal loss outperformed naive hard negative mining strategy by large margins. Focal loss可以将那些easy negative的loss呈指数级下降，所以对训练有影响的就是那些hard negative samples了，可以显著提高训练质量.
+2. Further, they used feature pyramid networks to detect multi-scale objects at different levels of feature maps. 多尺度的FPN有助于feature融合和检测
+
+Refer to paper [Focal Loss for Dense Object Detection](https://openaccess.thecvf.com/content_iccv_2017/html/Lin_Focal_Loss_for_ICCV_2017_paper.html)
+
+- CornerNet, Law et al., 2018
+1. anchors in other one-stage detectors need a huge number and most of them are useless. The use of anchors also introduces hyperparameters.
+2. Therefore, cornerNet is an anchor-free framework, where the goal was to predict keypoints of the bounding box. Use a pair of corners to replace the anchor.
+3. propose corner pooling
+
+Refer to paper [Cornernet: Detecting objects as paired keypoints](https://openaccess.thecvf.com/content_ECCV_2018/html/Hei_Law_CornerNet_Detecting_Objects_ECCV_2018_paper.html)
 
 # 3. Detection proposal generations
 ## 3.1 Traditional computer vision methods
