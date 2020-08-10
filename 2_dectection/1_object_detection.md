@@ -6,7 +6,8 @@
 - [3. Feature representing (feature extraction and fusion)](#3-feature-representing--feature-extraction-and-fusion-)
   * [3.1 multi-scale feature learning](#31-multi-scale-feature-learning)
   * [3.2 Region feature encoding](#32-region-feature-encoding)
-  * [3.3 Deformable feature learning](#33-deformable-feature-learning)
+  * [3.3 Contextual reasoning](#33-contextual-reasoning)
+  * [3.4 Deformable feature learning](#34-deformable-feature-learning)
 - [4 Applications](#4-applications)
   * [4.1 Face detection](#41-face-detection)
   * [4.2 Pedestrain detection](#42-pedestrain-detection)
@@ -176,12 +177,21 @@ There are four categories of multi-scale feature learning
 
 ![feature_pyramid](https://user-images.githubusercontent.com/42667259/89808014-c1d80500-db39-11ea-8be9-cc04e87a100c.png)
 
-
-
 ## 3.2 Region feature encoding
+Previous multi-scale feature learning is appliable for both two and one-stage detectors. Region feature encoding is an important step for two-stage detectors. In Fast RCNN, there is a ROI pooling layer, which is used to encode the region features. ROI Pooling divided each region into n × n cells (e.g. 7 × 7 by default) and only the neuron with the maximum signal would go ahead in the feedforward stage. ROI Pooling extracted features from the down-sampled feature map and as a result struggled to handle small objects. In R-FCN, in order to enhance spatial information of the downsampled region features, Position Sensitive ROI Pooing (PSROI Pooling) was proposed which kept relative spatial information of downsampled features. 在Fast RCNN在的ROI Pooling层就是用于region feature encoding的，R-FCN中则进一步将低层位置信息结合，产生位置敏感ROI pooling层。
 
-## 3.3 Deformable feature learning
+## 3.3 Contextual reasoning
+Learning the relationship between objects with their surrounding context can improve detector’s ability to understand the scenario. Some works [4] have even shown
+that in some cases context information may even harm the detection performance. 结合上下语境有助于推断，但有工作指出在某些情况下甚至会影响推断。
+1. Global context reasoning refers to learning from the context in the whole image. DeepIDNet [5] learned a categorical score for each image which is used as contextual features concatenated with the object detection results.
+2. Region Context Reasoning encodes contextual information surrounding regions and learns interactions between the objects with their surrounding area. Structure Inference Net (SIN) [6] formulated object detection as a graph inference problem by considering scene contextual information and object relationships. In SIN, each object was treated as a graph node and the relationship between different objects were regarded as graph edges. 
 
+## 3.4 Deformable feature learning
+A good detector should be robust to nonrigid deformation of objects. DeepIDNet [5] developed a deformable-aware pooling layer to encode the deformation information across different object categories. 
+
+[4] Cheng et al., 2018, [Revisiting rcnn: On awakening the classification power of faster rcnn](https://openaccess.thecvf.com/content_ECCV_2018/papers/Bowen_Cheng_Revisiting_RCNN_On_ECCV_2018_paper.pdf)
+[5] Ouyang et al., 2015, [Deepid-net: Deformable deep convolutional neural networks for object detection](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ouyang_DeepID-Net_Deformable_Deep_2015_CVPR_paper.pdf)
+[6]  Liu et al., 2018, [Structure inference net: Object detection using scene-level context and instance-level relationships](https://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_Structure_Inference_Net_CVPR_2018_paper.pdf)
 
 # 5 Applications
 ## 5.1 Face detection
