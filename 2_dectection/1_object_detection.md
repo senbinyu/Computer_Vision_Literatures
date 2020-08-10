@@ -139,27 +139,33 @@ Refer to paper [Ssd: Single shot multibox detector](https://link.springer.com/ch
 
 Refer to paper [Focal Loss for Dense Object Detection](https://openaccess.thecvf.com/content_iccv_2017/html/Lin_Focal_Loss_for_ICCV_2017_paper.html)
 
+Previous are anchor-based methods, below I listed two anchor-free, keypoints-based models: CornerNet and centerNet
 - CornerNet, Law et al., 2018
 1. anchors in other one-stage detectors need a huge number and most of them are useless. The use of anchors also introduces hyperparameters.
-2. Therefore, cornerNet is an anchor-free framework, where the goal was to predict keypoints of the bounding box. Use a pair of corners to replace the anchor.
-3. propose corner pooling
+2. Therefore, cornerNet is an anchor-free framework, where the goal was to predict keypoints of the bounding box. Use a pair of corners (top-left and bottom-right corners) to replace the anchor.
+3. noval design of corner pooling layer, which correctly match keypoints belonging to the same objects, obtaining state-of-the-art results on public benchmarks. Use feature map to corner pooling, can not use the whole iamge. 对某种feature map进行列和行的分别max pooling，不能对整张图片的整行或整列进行max pooling，会导致漏检或误检。
 
 Refer to paper [Cornernet: Detecting objects as paired keypoints](https://openaccess.thecvf.com/content_ECCV_2018/html/Hei_Law_CornerNet_Detecting_Objects_ECCV_2018_paper.html)
 
-# 3. Detection proposal generations
-## 3.1 Traditional computer vision methods
+- CenterNet, Zhou et al., 2019, University of Texas
+CenterNet achieves the best speed-accuracy trade-off on the MS COCO dataset, with 28.1% AP at 142 FPS, 37.4% AP at 52 FPS, and 45.1% AP with multi-scale testing at 1.4 FPS. 
 
-## 3.2 Anchor-based method
+Refer to paper [Objects as points](https://arxiv.org/pdf/1904.07850.pdf)
 
-## 3.3 Keypoints based method
+Here is a net that does not belong to anchor-based or keypoints-based models, AZNet, automatically focused on regions of high interest. 
+- AZNet, Lu et al., 2016  
+AZnet adopted a search strategy that adaptively directed computation resources to sub-regions which were likely contain objects. For each region, AZnet predicted
+two values: zoom indicator and adjacency scores. Zoom indicator determined whether to further divide this region which may contain smaller objects and adjacency scores denoted its objectness. 此模型不常用
+
+Refer to paper [Adaptive object detection using adjacency and zoom prediction](https://openaccess.thecvf.com/content_cvpr_2016/papers/Lu_Adaptive_Object_Detection_CVPR_2016_paper.pdf)
 
 
-# 4. Feature representing (feature extraction and fusion)
-## 4.1 multi-scale feature learning
+# 3. Feature representing (feature extraction and fusion)
+## 3.1 multi-scale feature learning
 
-## 4.2 Region feature encoding
+## 3.2 Region feature encoding
 
-## 4.3 Deformable feature learning
+## 3.3 Deformable feature learning
 
 
 # 5 Applications
