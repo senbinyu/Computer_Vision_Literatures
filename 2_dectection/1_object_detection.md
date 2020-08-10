@@ -3,15 +3,15 @@
 - [2. Detection paradigms](#2-detection-paradigms)
   * [2.1 Two-stage detectors](#21-two-stage-detectors)
   * [2.2 One-stage detectors](#22-one-stage-detectors)
-- [4. Feature representing (feature extraction and fusion)](#4-feature-representing--feature-extraction-and-fusion-)
-  * [4.1 multi-scale feature learning](#41-multi-scale-feature-learning)
-  * [4.2 Region feature encoding](#42-region-feature-encoding)
-  * [4.3 Deformable feature learning](#43-deformable-feature-learning)
-- [5 Applications](#6-applications)
-  * [5.1 Face detection](#61-face-detection)
-  * [5.2 Pedestrain detection](#62-pedestrain-detection)
-  * [5.3 Text detection](#63-text-detection)
-- [6. Datasets](#7-datasets)
+- [3. Feature representing (feature extraction and fusion)](#3-feature-representing--feature-extraction-and-fusion-)
+  * [3.1 multi-scale feature learning](#31-multi-scale-feature-learning)
+  * [3.2 Region feature encoding](#32-region-feature-encoding)
+  * [3.3 Deformable feature learning](#33-deformable-feature-learning)
+- [4 Applications](#4-applications)
+  * [4.1 Face detection](#41-face-detection)
+  * [4.2 Pedestrain detection](#42-pedestrain-detection)
+  * [4.3 Text detection](#43-text-detection)
+- [5. Datasets](#5-datasets)
 
 ![taxonomy](https://user-images.githubusercontent.com/42667259/89758255-a6440e80-dae7-11ea-8ab1-b5cb6b679b17.png)
 Image classification aims to recognize semantic categories of objects in a given image. Object detection not only recognizes object categories, but also predicts the location of each object by a bounding box.
@@ -161,19 +161,18 @@ Refer to paper [Adaptive object detection using adjacency and zoom prediction](h
 
 
 # 3. Feature representing (feature extraction and fusion)
-
-
 ## 3.1 multi-scale feature learning
 Detecting objects across large range of scales and aspect ratios is quite challenging on a single feature map. Specifically, shallow layer features with spatial-rich information have higher resolution and smaller receptive fields and thus are more suitable for detecting small objects, while semantic-rich features in deep layers are more robust to illumination, translation and have larger receptive fields (but coarse resolutions), and are more suitable for detecting large objects. 浅层包含更多位置信息，更小的视野，适合小物体检测；深层包含更丰富的语义信息，更大的视野，更适合大物体检测。
 
 There are four categories of multi-scale feature learning
 1. Image pyramid: An intuitive idea is to resize input images into a number of different scales (Image Pyramid) and to train multiple detectors, each of which is responsible for a certain range of scales. Singh et. al. [1] argued that single scale-robust detector to handle all scale objects was much more difficult than learning scale-dependent detectors with image pyramids. They proposed a novel framework Scale Normalization for Image Pyramids (SNIP) which trained multiple scale-dependent detectors and each of them was responsible for a certain scale objects. 不同尺寸的图片喂入到模型中进行训练，以来适应检测时需要的不同尺度，Signh认为单个尺度的不如多个尺度的训练
 2. Prediction pyramid: This is used in SSD, predictions were made from multiple layers, where each layer was responsible for a certain scale of objects. 这里的就相当于输入一张图，但在CNN过程中得到feature maps分别进行预测，最后再总结统计。
-3. Integrated features: Another approach is to construct a single feature map by combining features in multiple layers。By fusing spatially rich shallow layer features and semanticrich deep layer features, the new constructed features contain rich information and thus can detect objects at different scales.和2中不同的是，这是先融合再进行预测，正好反过来
-4. Feature pyramid: To combine the advantage of Integrated Features and Prediction Pyramid, integrated different scale features with lateral connections in a top-down fashion to build a set of scale invariant feature maps, and multiple scale-dependent classifiers were learned on these feature pyramids. 
+3. Integrated features: Another approach is to construct a single feature map by combining features in multiple layers。By fusing spatially rich shallow layer features and semanticrich deep layer features, the new constructed features contain rich information and thus can detect objects at different scales. Bell et al. [2] proposed Inside-Outside Network (ION) which cropped region features from different layers via ROI Pooling [38], and combined these multi-scale region features for the final prediction. 和2中不同的是，这是先融合再进行预测，正好反过来
+4. Feature pyramid: To combine the advantage of Integrated Features and Prediction Pyramid, Feature Pyramid Network (FPN) [3] integrated different scale features with lateral connections in a top-down fashion to build a set of scale invariant feature maps, and multiple scale-dependent classifiers were learned on these feature pyramids. Specifically, the deep semantic-rich features were used to strengthen the shallow spatially-rich features. These top-down and lateral features were combined by element-wise summation or concatenation, with small convolutions reducing the dimensions. FPN在原先从浅层到深层基础上，反向添加一个从深层到浅层的feature map，由此可以用深层的语义特征来加强浅层的空间特征。
 
-
-[1] Singh et al., [An analysis of scale invariance in object detection snip](https://openaccess.thecvf.com/content_cvpr_2018/html/Singh_An_Analysis_of_CVPR_2018_paper.html)
+[1] Singh et al., 2018, [An analysis of scale invariance in object detection snip](https://openaccess.thecvf.com/content_cvpr_2018/html/Singh_An_Analysis_of_CVPR_2018_paper.html)
+[2] Bell et al., 2016, [Inside-outside net: Detecting objects in context with skip pooling and recurrent neural networks](https://openaccess.thecvf.com/content_cvpr_2016/papers/Bell_Inside-Outside_Net_Detecting_CVPR_2016_paper.pdf)
+[3] Lin et al., 2017, [Feature Pyramid Networks for Object Detection](https://openaccess.thecvf.com/content_cvpr_2017/papers/Lin_Feature_Pyramid_Networks_CVPR_2017_paper.pdf)
 
 ![feature_pyramid](https://user-images.githubusercontent.com/42667259/89808014-c1d80500-db39-11ea-8be9-cc04e87a100c.png)
 
