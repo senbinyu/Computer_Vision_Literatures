@@ -168,10 +168,12 @@ Detecting objects across large range of scales and aspect ratios is quite challe
 
 There are four categories of multi-scale feature learning
 1. Image pyramid: An intuitive idea is to resize input images into a number of different scales (Image Pyramid) and to train multiple detectors, each of which is responsible for a certain range of scales. Singh et. al. [1] argued that single scale-robust detector to handle all scale objects was much more difficult than learning scale-dependent detectors with image pyramids. They proposed a novel framework Scale Normalization for Image Pyramids (SNIP) which trained multiple scale-dependent detectors and each of them was responsible for a certain scale objects. 不同尺寸的图片喂入到模型中进行训练，以来适应检测时需要的不同尺度，Signh认为单个尺度的不如多个尺度的训练
-2. Prediction pyramid: This is used in SSD, predictions were made from multiple layers, where each layer was responsible for a certain scale of objects.
-3. Integrated features: Another approach is to construct a single feature map by combining features in multiple layers
+2. Prediction pyramid: This is used in SSD, predictions were made from multiple layers, where each layer was responsible for a certain scale of objects. 这里的就相当于输入一张图，但在CNN过程中得到feature maps分别进行预测，最后再总结统计。
+3. Integrated features: Another approach is to construct a single feature map by combining features in multiple layers。By fusing spatially rich shallow layer features and semanticrich deep layer features, the new constructed features contain rich information and thus can detect objects at different scales.和2中不同的是，这是先融合再进行预测，正好反过来
+4. Feature pyramid: To combine the advantage of Integrated Features and Prediction Pyramid, integrated different scale features with lateral connections in a top-down fashion to build a set of scale invariant feature maps, and multiple scale-dependent classifiers were learned on these feature pyramids. 
 
-[1] Sing et al., []()
+
+[1] Singh et al., [An analysis of scale invariance in object detection snip](https://openaccess.thecvf.com/content_cvpr_2018/html/Singh_An_Analysis_of_CVPR_2018_paper.html)
 
 ![feature_pyramid](https://user-images.githubusercontent.com/42667259/89808014-c1d80500-db39-11ea-8be9-cc04e87a100c.png)
 
