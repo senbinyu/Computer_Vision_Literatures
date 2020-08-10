@@ -42,6 +42,12 @@ Here are some collections of review papers and some classic and state-of-art res
 - Wu et al., 2020, [Recent Advances in Deep Learning for Object Detection](https://www.sciencedirect.com/science/article/pii/S0925231220301430), Singapore Management University, *Recommand*
 
 # 2. Detection paradigms
+Two categories: two-stage vs one stage detectors  
+| Two-stage | one-stage |  
+| :---： | :----: |  
+| lower inference speed | faster inference speed |  
+
+
 ## 2.1 Two-stage detectors
 
 
