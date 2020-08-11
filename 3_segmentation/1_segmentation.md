@@ -71,5 +71,8 @@ It refines object detection with semantic and direction features based on Faster
 ![seg_masklab](https://user-images.githubusercontent.com/42667259/89929306-5cebe000-dc09-11ea-9f7e-7b2388ba81f5.png)
 
 ## 2.6 Dilated Convolutional Models and DeepLab Family
+Dilated conv (also known as atrous conv), 3 * 3 kernel with dilated rate 2 is equivalent to 5 * 5 kernel. 空洞卷积率，可以增大feature extraction时的视野，
+- DeepLab Chen et al., 2018, google, [Deeplab: Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7913730)  
+
 
 
