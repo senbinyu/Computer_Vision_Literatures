@@ -12,7 +12,8 @@
   * [4.1 Face detection](#41-face-detection)
   * [4.2 Pedestrain detection](#42-pedestrain-detection)
   * [4.3 Text detection](#43-text-detection)
-- [5. Datasets](#5-datasets)
+  * [4.4 Traffic light detection (autonomous driving)](#44-traffic-light-detection--autonomous-driving-)
+
 
 ![taxonomy](https://user-images.githubusercontent.com/42667259/89758255-a6440e80-dae7-11ea-8ab1-b5cb6b679b17.png)
 Image classification aims to recognize semantic categories of objects in a given image. Object detection not only recognizes object categories, but also predicts the location of each object by a bounding box.
@@ -193,8 +194,8 @@ A good detector should be robust to nonrigid deformation of objects. DeepIDNet [
 [5] Ouyang et al., 2015, [Deepid-net: Deformable deep convolutional neural networks for object detection](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Ouyang_DeepID-Net_Deformable_Deep_2015_CVPR_paper.pdf)  
 [6]  Liu et al., 2018, [Structure inference net: Object detection using scene-level context and instance-level relationships](https://openaccess.thecvf.com/content_cvpr_2018/papers/Liu_Structure_Inference_Net_CVPR_2018_paper.pdf)
 
-# 5 Applications
-## 5.1 Face detection
+# 4 Applications
+## 4.1 Face detection
 Face detection is a real-world application with human beings, such as face verification, face alignment and face recognition. There are some differences between face detection and generic detection: range of scale for objects in face detection is much larger; Face objects contain strong structural information, and there is only one target category in face detection. 
 
 Before the deep learning era, AdaBoost with Haar features for face detection and obtained excellent performance with high real time prediction speed. (OpenCV has the tutoraials. import haarcascade_frontalface_default.xml) 
@@ -208,7 +209,7 @@ Current face detection algorithms based on deep learning are mainly extended fro
 [9] Zhang et al., 2018, [Face detection using improved faster rcnn](https://arxiv.org/ftp/arxiv/papers/1802/1802.02142.pdf)  
 [10] Zhu et al., 2017, [Cms-rcnn: contextual multi-scale region-based cnn for unconstrained face detection](https://arxiv.org/pdf/1606.05413.pdf)
 
-## 5.2 Pedestrain detection
+## 4.2 Pedestrain detection
 There are some properties of pedestrian detection different from generic object detection: (i) Pedestrian objects are well structured objects with nearly fixed aspect ratios (about 1.5), but they also lie at a large range of scales; (ii) Pedestrian detection is a real world application, and hence the challenges such as crowding, occlusion and blurring are commonly exhibited; (iii) There are more hard negative samples (such as traffic light, Mailbox etc.) in pedestrian detection due to
 complicated contexts. 行人检测有长宽比较为固定，但也存在很多难点，像遮挡，密集，模糊等，同时有很多难负例存在于其复杂语义环境中
 
@@ -224,9 +225,31 @@ To handle occlusion problems, part-based models were proposed which learn a seri
 [14] Tian et al., 2015, [Deep learning strong parts for pedestrian detection](https://openaccess.thecvf.com/content_iccv_2015/papers/Tian_Deep_Learning_Strong_ICCV_2015_paper.pdf)  
 [15] Ouyang and Wang, 2012, [A discriminative deep model for pedestrian detection with occlusion handling](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6248062&casa_token=GwFn0B8cgZkAAAAA:5f7K7VoCPLqpj8hQEQqw-3PLsESactMBi_nWz3zkwg1iQ-WqqiO2wpKzImmCc_oUxWc3Q1-FvQ&tag=1)
 
-## 5.3 Text detection
+## 4.3 Text detection
+Text detection has some chanllenges: Different fonts and languages, Text rotation and perspective distortion, Densely arranged text localization, Broken and blurred characters. 
+
+In recent years, researchers have paid more attention to the problem of text localization rather than recognition. Two groups of methods are proposed recently. The first group of methods frame the text detection as a special case of general object detection [16]. These methods have a unified detection framework, but it is less effective for detecting texts with orientation or with large aspect ratio. The second group of methods frame the text detection as an image segmentation problem [17,18]. The advantage of these methods is there are no special restrictions for the shape and orientation of text, but the disadvantage is that it is not easy to distinguish densely arranged text lines from each other based on the segmentation result. 一种方法将text detection当做是object detection的特殊case,但此法不太有效；而另一种方法则是将其看成图像分割问题，好处是对text形状无限制，缺点是无法应对密集分布的text。
+
+For text rotation and perspective changes: The most common solution to this problem is to introduce additional parameters in anchor boxes and RoI pooling layer that are associated with rotation and perspective changes [19]. 
+
+To improve densely arranged text detection: The segmentation-based approach shows more advantages in detecting densely arranged texts. To distinguish the adjacent
+text lines, two groups of solutions have been proposed recently. The first one is “segment and linking”, where “segment” refers to the character heatmap, and “linking”
+refers to the connection between two adjacent segments indicating that they belong to the same word or line of text [16]. The second group is to introduce an additional corner/border detection task to help separate densely arrange texts, where a group of corners or a closed boundary corresponds to an individual line of text [17].
+
+To improve broken and blurred text detection: A recent idea to deal with broken and blurred texts is to use word level [20] recognition and sentence level recognition [21]. To deal with texts with different fonts, the most effective way is training with synthetic samples [20]. 
+
+[16] He et al., 2017, [Single shot text detector with regional attention](https://openaccess.thecvf.com/content_ICCV_2017/papers/He_Single_Shot_Text_ICCV_2017_paper.pdf)  
+[17] Liu et al., 2017, [Deep matching prior network: Toward tighter multi-oriented text detection](https://openaccess.thecvf.com/content_cvpr_2017/papers/Liu_Deep_Matching_Prior_CVPR_2017_paper.pdf)  
+[18] Wu et al., 2017, [Self-organized text detection with minimal post-processing via border learning](https://openaccess.thecvf.com/content_ICCV_2017/papers/Wu_Self-Organized_Text_Detection_ICCV_2017_paper.pdf)  
+[19] Ma et al., 2018, [Arbitrary-oriented scene text detection via rotation proposals](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8323240)  
+[20] Jaderberg et al., 2014, [Synthetic data and artificial neural networks for natural scene text recognition](https://arxiv.org/pdf/1406.2227.pdf)  
+[21] Wojna et al., 2017, [Attention-based extraction of structured information from street view imagery](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8270074)
 
 
+## 4.4 Traffic light detection (autonomous driving)
+Traffic light detection has a difference from the ordinary object detection: the target, i.e., traffic light is usually very small. Lu et al. [22] presented an attention model based detection framework to tackle the problem of detecting small objects in large high resolution images. Their framework outperforms the baseline faster RCNN, especially when detecting small targets with area less than 322 pixels. Adversarial training have been used to improve detection of small objects under complex traffic environments [23]. Perceptual GAN generates super-resolved representations for small objects to boost detection performance by leveraging the repeatedly updated generator network and the discriminator network. 在Faster-RCNN基础上，加入attention机制用于提取特别小的交通灯（有时候只有几个像素），同样也有用对抗的形式去加强检测能力
 
-# 6. Datasets
+
+[22] [Traffic signal detection and classification in street views using an attention model](https://link.springer.com/content/pdf/10.1007/s41095-018-0116-x.pdf)  
+[23] [Perceptual generative adversarial networks for small object detection](https://openaccess.thecvf.com/content_cvpr_2017/papers/Li_Perceptual_Generative_Adversarial_CVPR_2017_paper.pdf)
 
