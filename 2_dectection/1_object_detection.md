@@ -195,10 +195,30 @@ A good detector should be robust to nonrigid deformation of objects. DeepIDNet [
 
 # 5 Applications
 ## 5.1 Face detection
+Face detection is a real-world application with human beings, such as face verification, face alignment and face recognition. There are some differences between face detection and generic detection: range of scale for objects in face detection is much larger; Face objects contain strong structural information, and there is only one target category in face detection. 
 
+Before the deep learning era, AdaBoost with Haar features for face detection and obtained excellent performance with high real time prediction speed. (OpenCV has the tutoraials. import haarcascade_frontalface_default.xml) 
+
+Current face detection algorithms based on deep learning are mainly extended from generic detection frameworks such as Fast R-CNN and SSD. 
+1. multi-scale features dealing: In order to handle extreme scale variance, multi-scale feature learning methods discussed before have been widely used in face detection. Sun et al. [7] proposed a Fast R-CNN based framework which integrated multi-scale features for prediction and converted the resulting detection bounding boxes into ellipses as the regions of human faces are more elliptical than rectangular. Zhang et al. [8] proposed one-stage S3FD which found faces on different feature maps to detect faces at a large range of scales. They made predictions on larger feature maps to capture small-scale face information. Notably, a set of anchors were carefully designed according to empirical receptive fields and thus provided a better match to the faces. 单阶段多阶段的均利用了多尺度融合的方法进行人脸检测，以减轻人脸检测中尺度跨越大的问题。
+2. contextual information: Zhang et al. [9] proposed FDNet based on ResNet with larger deformable convolutional kernels to capture image context. Zhu et al. [10] proposed a Contextual Multi-Scale Region-based Convolution Neural Network (CMS-RCNN) in which multi-scale information was grouped both in region proposal and ROI detection to deal with faces at various range of scale. In addition, contextual information around faces is also considered in training detectors. 语义信息获取，通过deformable的卷积核，和使用CMS-RCNN
+
+[7] Sun et al., 2018, [Face detection using deep learning: An improved faster RCNN approach](https://www.sciencedirect.com/science/article/pii/S0925231218303229?casa_token=D5_Yl1deSnAAAAAA:trmLN3aDhB8UyR_MYeXxw-ZABXI74QpObHs9TX0y1MOvfMvMlnp1ZBDRr00nQfMsE-i9xgPTROE)  
+[8] Zhang et al., 2017, [S3fd: Single shot scale-invariant face detector](https://openaccess.thecvf.com/content_ICCV_2017/papers/Zhang_S3FD_Single_Shot_ICCV_2017_paper.pdf)  
+[9] Zhang et al., 2018, [Face detection using improved faster rcnn](https://arxiv.org/ftp/arxiv/papers/1802/1802.02142.pdf)  
+[10] Zhu et al., 2017, [Cms-rcnn: contextual multi-scale region-based cnn for unconstrained face detection](https://arxiv.org/pdf/1606.05413.pdf)
 
 ## 5.2 Pedestrain detection
+There are some properties of pedestrian detection different from generic object detection: (i) Pedestrian objects are well structured objects with nearly fixed aspect ratios (about 1.5), but they also lie at a large range of scales; (ii) Pedestrian detection is a real world application, and hence the challenges such as crowding, occlusion and blurring are commonly exhibited; (iii) There are more hard negative samples (such as traffic light, Mailbox etc.) in pedestrian detection due to
+complicated contexts. 行人检测有长宽比较为固定，但也存在很多难点，像遮挡，密集，模糊等，同时有很多难负例存在于其复杂语义环境中
 
+In deep learning era, Angelova et al [11] proposed a real-time pedestrian detection framework using a cascade of deep convolutional networks. In their work, a large number of easy negatives were rejected by a tiny model and the remaining hard proposals were then classified by a large deep networks. Further, Yang et al. [100] inserted Scale Dependent Pooling (SDP) and Cascaded Rejection Classifiers (CRC) into Fast RCNN to handle pedestrians at different scales. According to the height
+of the instances, SDP extracted region features from a suitable scale feature map, while CRC rejected easy negative samples in shallower layers. Wang et al. [213] proposed a novel Repulsion Loss to detect pedestrians in a crowd. They argued that detecting a pedestrian in a crowd made it very sensitive to the NMS threshold,
+which led to more false positives and missing objects. The new proposed repulsion loss pushed the proposals into their target objects but also pulled them away from other objects and their target proposals. 所提出的模型都是为了解决上述提到的尺度跨越大，密集，难负例多这些问题。
+
+To handle occlusion problems, part-based models were proposed which learn a series of part detectors and integrate the results of part detectors to locate and classify objects. Tian et al. [216] proposed DeepParts which consisted of multiple part-based detectors. During training, the important pedestrian parts were automatically selected from a part pool which was composed of parts of the human body (at different scales), and for each selected part, a detector was learned to handle occlusions. To integrate the inaccurate scores of part-based models, Ouyang and Wang [223] proposed a framework which modeled visible parts as hidden variables in training the models. In their work, the visible relationship of overlapping parts were learned by discriminative deep models, instead of being manually defined or even being assumed independent. 遮挡问题是最有挑战的，未解决这个问题，提出了基于部件(将人分为各个part)的detectors，利用部件的检测，可以部分解决遮挡问题。
+
+[11] Angelova et al., 
 
 ## 5.3 Text detection
 
