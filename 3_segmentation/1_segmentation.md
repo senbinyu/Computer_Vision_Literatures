@@ -94,4 +94,16 @@ It uses an encoder-decoder architecture, including atrous separable convolution,
 ![seg_deepLabv3+](https://user-images.githubusercontent.com/42667259/90014316-2369b200-dca7-11ea-805f-f86e3d2b073f.png)
 
 ## 2.7 Recurrent Neural Network Based Models
+RNNs are useful in modeling the short/long term dependencies among pixels to (potentially) improve the estimation of the segmentation map. Using RNNs, pixels may be linked together and processed sequentially to model global contexts and improve semantic segmentation. RNN在帮助理解周围像素的语义信息对分割也有帮助。
+
+- Byeon et al. 2015, University of Kaiserslautern, [Scene labeling with lstm recurrent neural networks](https://openaccess.thecvf.com/content_cvpr_2015/papers/Byeon_Scene_Labeling_With_2015_CVPR_paper.pdf)  
+It is a pixellevel segmentation and classification of scene images using 2D long-short-term-memory (LSTM) network. In this work, classification, segmentation, and
+context integration are all carried out by 2D LSTM networks, allowing texture and spatial model parameters to be learned within a single model. 周围方向上的语义信息输入到LSTM中，将分类，分割集合到2D LSTM的网络中
+![seg_lstm](https://user-images.githubusercontent.com/42667259/90018427-31223600-dcad-11ea-9b16-66838d55d279.png)
+
+- ReSeg, Visin et al., 2016, Polimi, [Reseg: A recurrent neural network-based model for semantic segmentation](https://www.cv-foundation.org/openaccess/content_cvpr_2016_workshops/w12/papers/Visin_ReSeg_A_Recurrent_CVPR_2016_paper.pdf)  
+Based on ReNet(for classification), four RNNs that sweep the image horizontally and vertically in both directions, encoding patches/activations, and providing relevant global information. The same ReNet layers are followed by up-sampling layers to recover the original image resolution in the final predictions. Gated Recurrent Units (GRUs) are used because they provide a good balance between memory usage and computational power. 骨架和ReNet一致，就是最后的分类阶段变成上采样，从而能输出分割图像。
+![seg_reseg](https://user-images.githubusercontent.com/42667259/90016908-059e4c00-dcab-11ea-8d8f-445d0c0aae93.png)
+
+
 
