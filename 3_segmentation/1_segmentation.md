@@ -71,8 +71,26 @@ It refines object detection with semantic and direction features based on Faster
 ![seg_masklab](https://user-images.githubusercontent.com/42667259/89929306-5cebe000-dc09-11ea-9f7e-7b2388ba81f5.png)
 
 ## 2.6 Dilated Convolutional Models and DeepLab Family
-Dilated conv (also known as atrous conv), 3 * 3 kernel with dilated rate 2 is equivalent to 5 * 5 kernel. 空洞卷积率，可以增大feature extraction时的视野，
-- DeepLab Chen et al., 2018, google, [Deeplab: Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7913730)  
+Dilated conv (also known as atrous conv), 3 * 3 kernel with dilated rate 2 is equivalent to 5 * 5 kernel. 空洞卷积率，可以增大feature extraction时的视野.
+
+DeepLab family: in deepLab v3, the authors begins to call previous deeplab v2. 
+- DeepLab v1, Chen et al., 2014, in  ## 2.2, [Semantic image segmentation with deep convolutional nets and fully connected crfs](https://arxiv.org/pdf/1412.7062.pdf)  
+- DeepLab v2, Chen et al., 2016, google, [Deeplab: Semantic image segmentation with deep convolutional nets, atrous convolution, and fully connected crfs](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7913730)  
+1. use of dilated convolution to address the decreasing resolution in the network (caused by max-pooling and striding). 
+2. Atrous Spatial Pyramid Pooling (ASPP) probes an incoming convolutional feature layer with filters at multiple sampling rates, thus capturing objects as well as image context at multiple scales to robustly segment objects at multiple scales. 
+3. Improved localization of object boundaries is achieved by combining methods from deep CNNs and probabilistic graphical models. 
+空洞卷积可以增加感受野，减小分辨率降低（max-pooling）的问题，且空洞金字塔池化能够捕捉多尺度信息，增强信息畅通性。
+但为什么在实际的CNN中较少见到？查阅资料后发现是：*空洞卷积在实际中不好优化，速度会大大折扣*
+![seg_deepLabv2](https://user-images.githubusercontent.com/42667259/90012174-311d3880-dca3-11ea-8d94-b3ddf033cb25.png)
+
+- DeepLab v3, Chen et al., 2017, google, [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/pdf/1706.05587.pdf)  
+Combines cascaded and parallel modules of dilated convolutions. The parallel convolution modules are grouped in the ASPP. A 1 × 1 convolution and batch normalisation
+are added in the ASPP. All the outputs are concatenated and processed by another 1 × 1 convolution to create the final output with logits for each pixel. 
+![seg_deepLabv3](https://user-images.githubusercontent.com/42667259/90012815-65ddbf80-dca4-11ea-8268-20a61818910d.png)
+
+- DeepLab v3+, Chen et al., 2018, google, [Encoder-decoder with atrous separable convolution for semantic image segmentation](https://openaccess.thecvf.com/content_ECCV_2018/papers/Liang-Chieh_Chen_Encoder-Decoder_with_Atrous_ECCV_2018_paper.pdf)  
+It uses an encoder-decoder architecture, including atrous separable convolution, composed of a depthwise convolution (spatial convolution for each channel of the input) and pointwise convolution (1× 1 convolution with the depthwise convolution as input). They used the DeepLabv3 framework as encoder.
+
 
 
 
