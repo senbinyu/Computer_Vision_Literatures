@@ -115,5 +115,26 @@ Using a combination of CNN to encode the image and LSTM to encode its natural la
 ![seg_graph_lstm](https://user-images.githubusercontent.com/42667259/90022326-b0663880-dcb2-11ea-9be4-04d323d76020.png)
 
 ## 2.8 Attention-Based Models
+In object detection, we already noticed the attention mechanism can improve the task quality significantly. Here we use it in the segmentation task.
+
+- Chen et al., 2016, UCLA, [Attention to scale: Scale-aware semantic image segmentation](https://openaccess.thecvf.com/content_cvpr_2016/papers/Chen_Attention_to_Scale_CVPR_2016_paper.pdf)  
+The authors propose an attention mechanism that learns to softly weight the multi-scale features at each pixel location. They adapt a powerful semantic segmentation model and jointly train it with multi-scale images and the attention model. The attention mechanism outperforms average and max pooling, and it enables the model to assess the importance of features at different positions and scales. 
+他们将FCN模型和注意力模型一块训练，在大尺度图片上调高小物体的weights，小尺度图片上大物体得到识别，最终得到了超出pooling的有效结果。
+![seg_attention](https://user-images.githubusercontent.com/42667259/90023781-6a11d900-dcb4-11ea-835d-5640c4f75dc4.png)
+
+- RAN (Reverse Attention Network), Huang et al., 2017, USC, [Semantic segmentation with reverse attention](https://arxiv.org/pdf/1707.06426.pdf)  
+RAN trains the model to capture the opposite concept (i.e., features that are not associated with a target class) as well. The RAN is a three-branch network that performs the direct, and reverse-attention learning processes simultaneously. 
+![seg_ran](https://user-images.githubusercontent.com/42667259/90027595-ff16d100-dcb8-11ea-89a3-2082856bd551.png)
+
+- Pyramid Attention Network, Li et al., 2018, Beijing Institute of Technology, [Pyramid attention network for semantic segmentation](https://arxiv.org/pdf/1805.10180.pdf)  
+Authors combine attention mechanism and spatial pyramid to extract precise dense features for pixel labeling instead of complicated dilated convolution and artificially designed decoder networks. Specifically, we introduce a Feature Pyramid Attention module to perform spatial pyramid attention structure on high-level output and combine global pooling to learn a better feature representation, and a Global Attention Upsample module on each decoder layer to provide global context as a guidance of low-level features to select category localization details. 
+结合FPN和attention机制，形成FPA,进行深层的语义信息提取结合全局pooling，然后和低层的位置信息结合。
+
+- DAnet, Fu et al., 2019, Chinese Academy of Sciences, [Dual attention network for scene segmentation](https://openaccess.thecvf.com/content_CVPR_2019/papers/Fu_Dual_Attention_Network_for_Scene_Segmentation_CVPR_2019_paper.pdf)  
+Dual attention network can capture rich contextual dependencies based on the self-attention mechanism. Specifically, they append two types of attention modules on top of a dilated FCN which models the semantic interdependencies in spatial and channel dimensions, respectively. The position attention module selectively aggregates the feature at each position by a weighted sum of the features at all positions. Meanwhile, the channel attention module selectively emphasizes interdependent channel maps by integrating associated features among all channel maps. We sum the outputs of the two attention modules to further improve feature representation.
+引入两个attention模块并行，一个是spatial(不同位置特征的加权和)，一个是channel（就像SENet对不同channel激活然后归一化），随后将两者结合输出分割图像
+![seg_danet](https://user-images.githubusercontent.com/42667259/90029683-6f265680-dcbb-11ea-9cb6-ed26b7e3d22a.png)
+
+## 2.9 Generative Models and Adversarial Training
 
 
