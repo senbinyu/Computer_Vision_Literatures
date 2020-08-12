@@ -105,5 +105,15 @@ context integration are all carried out by 2D LSTM networks, allowing texture an
 Based on ReNet(for classification), four RNNs that sweep the image horizontally and vertically in both directions, encoding patches/activations, and providing relevant global information. The same ReNet layers are followed by up-sampling layers to recover the original image resolution in the final predictions. Gated Recurrent Units (GRUs) are used because they provide a good balance between memory usage and computational power. 骨架和ReNet一致，就是最后的分类阶段变成上采样，从而能输出分割图像。
 ![seg_reseg](https://user-images.githubusercontent.com/42667259/90016908-059e4c00-dcab-11ea-8d8f-445d0c0aae93.png)
 
+- Liang et al., 2016, National University of Singapore, [Semantic object parsing with graph lstm](https://arxiv.org/pdf/1603.07063.pdf)  
+Based on the graph LSTM, LSTM layers built on a super-pixel map are appended on the convolutional layers to enhance visual features with global structure context. The convolutional features pass through 1 × 1 convolutional filters to generate the initial confidence maps for all labels. The node updating sequence for the subsequent Graph LSTM layers is determined by the confidence-drive scheme based on the initial confidence maps, and then the Graph LSTM layers can sequentially update the hidden states of all superpixel nodes. 这其实也像CNN和RNN结合，CNN得到的置信图和卷积结果喂给LSTM。图的LSTM所要判别的pixel是由周围的pixel作为邻居一起决定，因此，可以给出如身体的各个部位信息。
+![seg_graph_lstm](https://user-images.githubusercontent.com/42667259/90020617-5feddb80-dcb0-11ea-8bd6-8719acd36edb.png)
+
+- Hu et al., 2016, UC Berkeley, [Segmentation from natural language expressions](https://arxiv.org/pdf/1603.06180.pdf)  
+Using a combination of CNN to encode the image and LSTM to encode its natural language description, the authors proposed a semantic segmentation algorithm based on natural language expression. To produce pixel-wise segmentation for language expression, they propose an end-to-end trainable recurrent and convolutional model that jointly learns to process visual and linguistic information. In the considered model, a recurrent LSTM network is used to encode the referential expression into a vector representation, and an FCN is used to extract a spatial feature map from the image and output a spatial response map for the target object.
+结合LSTM和FCN，由LSTM学习语言信息，FCN学习图像信息，最后综合给出分割结果
+![seg_graph_lstm](https://user-images.githubusercontent.com/42667259/90022326-b0663880-dcb2-11ea-9be4-04d323d76020.png)
+
+## 2.8 Attention-Based Models
 
 
