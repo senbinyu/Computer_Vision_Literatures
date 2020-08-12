@@ -89,8 +89,9 @@ are added in the ASPP. All the outputs are concatenated and processed by another
 ![seg_deepLabv3](https://user-images.githubusercontent.com/42667259/90012815-65ddbf80-dca4-11ea-8268-20a61818910d.png)
 
 - DeepLab v3+, Chen et al., 2018, google, [Encoder-decoder with atrous separable convolution for semantic image segmentation](https://openaccess.thecvf.com/content_ECCV_2018/papers/Liang-Chieh_Chen_Encoder-Decoder_with_Atrous_ECCV_2018_paper.pdf)  
-It uses an encoder-decoder architecture, including atrous separable convolution, composed of a depthwise convolution (spatial convolution for each channel of the input) and pointwise convolution (1× 1 convolution with the depthwise convolution as input). They used the DeepLabv3 framework as encoder.
+It uses an encoder-decoder architecture, including atrous separable convolution, composed of a depthwise convolution (spatial convolution for each channel of the input) and pointwise convolution (1× 1 convolution with the depthwise convolution as input). They used the DeepLabv3 framework as encoder. It obtains 89.0% mIoU score on the 2012 PASCAL VOC challenge compared with 85.7% with DeepLab v3.
+相当于在v3基础上，多加了一个decoder环节，从刚开始的dilated conv处多接了一路，完善了物体边界信息。
+![seg_deepLabv3+](https://user-images.githubusercontent.com/42667259/90014316-2369b200-dca7-11ea-805f-f86e3d2b073f.png)
 
-
-
+## 2.7 Recurrent Neural Network Based Models
 
