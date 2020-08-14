@@ -11,3 +11,7 @@ From the figure below, we can see that for spatial attention, C * H * W becomes 
 
 see https://zhuanlan.zhihu.com/p/65529934
 ![nn_cbam_2](https://user-images.githubusercontent.com/42667259/90161966-38703f00-dd94-11ea-91a1-08367238c6fa.png)
+
+3. samples attention
+Personal thinking, for the hard negative samples, we use focal loss to focus on them. Utilize the hard examples to train a more robust model.
+个人将focal loss等对hard negative samples的侧重选择归类为对样本的attention，通过各种方法将hard negative samples更多的放入到训练池中，以让模型的学习能力增强
