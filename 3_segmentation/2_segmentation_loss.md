@@ -95,8 +95,8 @@ Penalty loss惩罚generalized Dice loss LGD中的FN和FP。 k是非负惩罚系�
 Boundary-based loss, a new type of loss function, aims to minimize the distance between ground truth and predicted segmentation.
 
 - Boundary (BD) loss
-To compute the distance Dist(pG; pS) between two boundaries in a differentiable way, boundary loss uses integrals over the boundary instead of unbalanced integrals over regions to mitigate the difficulties of highly unbalanced segmentation.
-为了以可微分的方式计算两个边界之间的距离Dist（pG; pS），边界损耗使用边界上的积分而不是不平衡的对区域进行积分以减轻高度不平衡的细分带来的困难。φG = −DG(q) if q 2 G, and φG = DG(q) otherwise
+To compute the distance Dist(pG; pS) between two boundaries in a differentiable way, boundary loss uses integrals over the boundary instead of unbalanced integrals over regions to mitigate the difficulties of highly unbalanced segmentation. DG(p) is the distance map of ground truth, s(p) is binary indicator function.
+为了以可微分的方式计算两个边界之间的距离Dist（pG; pS），边界损耗使用边界上的积分而不是不平衡的对区域进行积分以减轻高度不平衡的细分带来的困难。DG(p)是与ground truth的距离, s(p)是双值函数，φG = −DG(q) if q 2 G, and φG = DG(q) otherwise。作者在文章是用Dice loss + BD loss结合，前期Dice loss比重较高，后期BD loss比重变高，可以更好的处理边界问题。
 
 ![loss_bd](https://user-images.githubusercontent.com/42667259/90266686-a845fe80-de54-11ea-95ff-af2b52e8eb37.png)
 
@@ -109,6 +109,7 @@ Since minimizing HD directly is intractable and could lead to unstable training,
 - Discussion of connections between Dice loss, BD loss and HD loss
 It can be found that all three loss functions aim to minimize the mismatch regions ∆M between ground truth and segmentation. The key difference among them is the weighting methods. For Dice loss, the segmentation mismatch is weighted by the sum of the number of foreground pixels in the segmentation and the number of pixels in ground truth. In BD loss, it is weighted by the distance transform map of ground truth. HD loss not only uses the distance transform map of the ground truth for weighting, but also uses the distance transform map of the segmentation.
 
+所有三个损失函数的目的是使ground truth和segmentation的失配区域ΔM最小。 它们之间的主要区别是加权方法。 对于Dice损失，分割不匹配由分割中前景像素数与ground truth中像素数之和加权。 在BD损失中，它由ground truth的距离变换map加权。 HD损失不仅使用ground truth的距离变换map进行加权，还使用分割的距离变换map。
 
 ## 2.4 Compound loss
 - Combo loss, Taghanaki et al., 2019, Simon Fraser University, [Combo loss: Handling input and output imbalance in multi-organ segmentation](https://www.sciencedirect.com/science/article/pii/S0895611118305688)   
