@@ -109,15 +109,29 @@ The following figures shows several classic one-stage models used for object det
 ![one-stage](https://user-images.githubusercontent.com/42667259/89786010-8cbcba00-db1b-11ea-9c8f-be48a067d05a.png)
 - YOLO series, Redmon et al., 2016
 - v1, image divided into 7 * 7 grids, each grid has several predicting boxes (only 2 in v1). For each cell, a prediction was made which comprised the following information: whether that location had an object, the bounding box coordinates and size (width and height), and the class of the object. Use NMS to remove the overlapping bbox on the same object. YOLO is fast, but the recall is low.
+V1中让每个cell预测2个bbox，经过训练后，会发现两个框出现了分工，一个倾向于预测细长的，一个预测宽的，但在最终统计loss时，只取里面IOU大的那个。当然，框越大越好，此处取2个是效率和精度的折中。损失函数是亮点，分类误差 + 置信度误差 + 预测框误差。值得注意的是，w,h取根号，是为了尽量消除大小框大小尺度给loss带来的影响。同时，这种方法因为分为7 * 7个cell，所以最多只能预测49个目标。其中的置信度是p * IOU(gd, pd), p是1或者0，gd是ground truth，pd是predict box
 
 - v2, + a series of strategies, shown in the following figure. Anchor boexs are added in v2, multi-scale detection is also added. Without anchor boxes our intermediate model gets 69.5 mAP with a recall of 81%. With anchor boxes our model gets 69.2 mAP with a recall of 88%. After adding all the strategies, the accuracy was improved significantly. Note, here is a new network, darknet-19. 
 YOLOv2 借鉴了很多其它目标检测方法的一些技巧，如 Faster R-CNN 的 anchor boxes, SSD 中的多尺度检测。YOLOv2 可以预测 13x13x5=845 个边界框，模型的召回率由原来的 81% 提升到 88%，mAP 由原来的 69.5% 降低到 69.2%. 召回率提升了 7%，准确率下降了 0.3%。除此之外，YOLOv2 在网络设计上做了很多 tricks, 使它能在保证速度的同时提高检测准确率，Multi-Scale Training 更使得同一个模型适应不同大小的输入，从而可以在速度和精度上进行自由权衡。
+
+v2除了引入anchor外，还进行了如下改进：改变ground truth的编码方式，引入了feature map的融合方式，还引入了联合训练。Wordtree的思想在工业界有很大的启发，因为标注数据少的缘故。
 ![yolov2](https://user-images.githubusercontent.com/42667259/89789481-effd1b00-db20-11ea-8e56-b2b85ae11831.png)
 
-- v3, + darknet-53. use k-means to cluster 9 anchors. Much faster.
+- v3, + darknet-53. use k-means to cluster 9 anchors. Much faster.   
+一种是普通的v3，结合了FPN的多尺度融合。
+
+另一种是SPP的v3, 在预测最大物体的支路上也添加了SPP的结构（用不同大小的kernel进行max pooling，再拼接起来。为了保证大小相同，会用不同的padding），同时整个结构参考了FPN的多尺度融合方式。总共9个anchor，每个尺度下的对应3个anchor，每个尺度下输出的tensor的另一维度为255=3 * (80 + 1 + 4). 损失函数分类和置信度部分变成交叉熵，bbox部分略有改动，和2基本一样。置信度标签是直接有对象就为1，无对象为0.
 ![yolov3](https://user-images.githubusercontent.com/42667259/89791465-a8c45980-db23-11ea-920a-5f1316958d8c.png)
+![yolov3_2](https://user-images.githubusercontent.com/42667259/90336370-b8d4b100-dfdb-11ea-82f0-52fd363a5ca0.png)
+![yolov3_spp](https://user-images.githubusercontent.com/42667259/90336391-e883b900-dfdb-11ea-906f-db40ca594f88.png)
 
 - v4 + augmentation strategies, compound many tricks together and obtain efficient and accurate yolov4. Bag of freebies + Bag of specials + (CSPDarkNet53 + SPP + PANet(path-aggregation neck) + YOLOv3-head). *Recommand*
+
+YoloV4 将最近⼏年 CV 界⼤量的trick 集中在⼀套模型中。这篇论⽂不仅仅可以看作是⼀个模型的学习，更能看成是⼀个不错的⽂献总署。更有意思的是作者提出了 backbone,neck,head 的⽬标检测通⽤框架套路。YoloV4 将最近⼏年 CV 界⼤量的trick 集中在⼀套模型中。这篇论⽂不仅仅可以看作是⼀个模型的学习，更能看成是⼀个不错的⽂献总署。更有意思的是作者提出了 backbone,neck,head 的⽬标检测通⽤框架套路。
+加了Mish激活函数，19年底出现，效果很不错。dropblock，对feature map的局部丢弃，其实是cutout的推广。
+特征融合采用PANet的变种，用的是concatenate.
+还有loss函数，作者发现x,y,w,h之间有相互耦合关系，直接用之前的MSE有一定问题，因此提出了用IOU类的方法，先是DIOU，考虑了两边框中心点距离，两边框重合的面积。但是没有考虑到长宽比，因此推广到CIOU. 测试阶段时，DIOU_NMS 代替 NMS，不需要用CIOU，因为测试阶段时，无需考虑长宽比一致。
+![yolov4_2](https://user-images.githubusercontent.com/42667259/90336816-a4de7e80-dfde-11ea-9854-5e7dc62eb5a3.png)
 
 Refer to paper v1 [You Only Look Once: Unified, Real-Time Object Detection](https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html)
 v2 [YOLO9000: Better, faster, stronger](https://openaccess.thecvf.com/content_cvpr_2017/html/Redmon_YOLO9000_Better_Faster_CVPR_2017_paper.html)
