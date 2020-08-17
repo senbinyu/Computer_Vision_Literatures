@@ -138,6 +138,16 @@ v2 [YOLO9000: Better, faster, stronger](https://openaccess.thecvf.com/content_cv
 v3 [YOLOv3: An Incremental Improvement](https://sci-hub.st/https://arxiv.org/abs/1804.02767)
 v4 Alexey Bochkovskiy et al., [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://sci-hub.st/https://arxiv.org/abs/2004.10934)
 
+最新出来了个v5，只有代码，没有文字，根据代码给出的v4和v5的对比
+https://zhuanlan.zhihu.com/p/161083602
+v5可以自动check_anchors,若发现目前的数据集和之前收集的anchors差别大，则重新修正。
+1. network architecture是一致的，都用了CSPDarknet作为骨架，然后用BiFPN作为neck，而head使用的也是和yolo v3相同的结构；
+2. activation函数，v4用的是Mish函数，v5用的是LeakyReLU和sigmoid，但Mish计算更昂贵。
+3. 优化函数，optimization function，yolo v5用了Adam和SGD，作者还给出了建议，如果需要训练较小的自定义数据集，Adam是更合适的选择，尽管Adam的学习率通常比SGD低。但是如果训练大型数据集，对于YOLOV5来说SGD效果比Adam好。
+4. loss function，YOLO 系列的损失计算是基于 objectness score, class probability score,和 bounding box regression score。YOLO V5使用 GIOU Loss作为bounding box的损失。YOLO V5使用二进制交叉熵和 Logits 损失函数计算类概率和目标得分的损失。同时我们也可以使用fl _ gamma参数来激活Focal loss计算损失函数。
+YOLO V4使用 CIOU Loss作为bounding box的损失，与其他提到的方法相比，CIOU带来了更快的收敛和更好的性能。
+5. 推理时间，v5比v4快不少。其一，模型大小，v5比v4尺寸小；其二，v5默认可以采用批处理的方式，因此会快一些。而单个图像（批大小为1）上，YOLOV4推断在22毫秒内，YOLOV5s推断在20毫秒内，两者差别不大。
+
 - SSD series, SingleShot Mulibox Detector, Liu et al., 2016  
 1. With anchors, to overcome yolov1's problems: can not have accurate localization, low recall.
 2. extract different layers feature map for prediction, since shallow layer has detailed location info beneficial for the detection of small objects. several extra convolutional feature maps were added to the original backbone architecture in order to detect large objects and increase receptive fields. The final prediction was made by merging all detection results from different feature maps. 
