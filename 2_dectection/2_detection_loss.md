@@ -35,4 +35,9 @@ DIoU还可以替换普通的IoU评价策略，应用于NMS中，使得NMS得到�
 ![loss_ciou_3](https://user-images.githubusercontent.com/42667259/90419540-04a85880-e0b7-11ea-8ba2-23fb92884fee.png)
 
 2. 置信度损失和分类Loss.
+这里先给出v1-v3的损失函数，可以看出，v1-v2中置信度误差和分类误差均使用的是MSE；
+从v2到v3, 不同的地⽅在于，对于类别和置信度的损失使⽤交叉熵。
+![loss_yolov1](https://user-images.githubusercontent.com/42667259/90420638-83ea5c00-e0b8-11ea-8fb2-73239c4bdba3.png)
+![loss_yolov2](https://user-images.githubusercontent.com/42667259/90420640-851b8900-e0b8-11ea-823a-4a54374031ab.png)
+![loss_yolov3](https://user-images.githubusercontent.com/42667259/90420641-851b8900-e0b8-11ea-96b1-7db01ef28c2c.png)
 
