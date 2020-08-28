@@ -8,7 +8,6 @@
 如下图所示,y是真实标签，a是预测标签，一般可通过sigmoid，softmax得到，x是样本，n是样本数目，和对数似然等价。    
 ![ce_loss](https://user-images.githubusercontent.com/42667259/91491995-2c689f00-e8b5-11ea-8294-e6c122da3476.png)  
 
-
 - focal loss,   
 用改变loss的方式来缓解样本的不平衡，因为改变loss只影响train部分的过程和时间，而对推断时间影响甚小，容易拓展。  
 focal loss就是把CE里的p替换为pt，当预测正确的时候，pt接近1，在FL(pt)中，其系数$(1-p_t)^\gamma$越小（只要$\gamma>0$）；简而言之，就是简单的样例比重越小，难的样例比重相对变大   
@@ -16,6 +15,14 @@ focal loss就是把CE里的p替换为pt，当预测正确的时候，pt接近1�
 ![loss_focal](https://user-images.githubusercontent.com/42667259/91609497-d14bb080-e977-11ea-9753-4d1edb2d9632.png)
 
 - Rankings类型的损失  
+在这有两类，DR(Distributional Ranking) Loss和AP Loss  
+- DR Loss, 分布排序损失， Qian et al., 2020, [DR loss: Improving object detection by distributional ranking](https://openaccess.thecvf.com/content_CVPR_2020/papers/Qian_DR_Loss_Improving_Object_Detection_by_Distributional_Ranking_CVPR_2020_paper.pdf)      
+DR loss的研究背景和focal loss一样，one-stage方法中样本不平衡。它进行分布的转换以及用ranking作为loss。将分类问题转换为排序问题，从而避免了正负样本不平衡的问题。同时针对排序，提出了排序的损失函数DR loss。具体流程可参考：https://zhuanlan.zhihu.com/p/75896297  
+![loss_DR](https://user-images.githubusercontent.com/42667259/91613528-fba16c00-e97f-11ea-964b-ec0896f25d05.png)  
+
+- AP Loss, Chen et al., 2019, [Towards Accurate One-Stage Object Detection with AP-Loss](https://openaccess.thecvf.com/content_CVPR_2019/papers/Chen_Towards_Accurate_One-Stage_Object_Detection_With_AP-Loss_CVPR_2019_paper.pdf)  
+AP loss也是解决one-stage方法中样本不平衡问题,同时也和DR loss类似，是一种排序loss。将单级检测器中的分类任务替换为排序任务，并采用平均精度损失(AP-loss)来处理排序问题。由于AP-loss的不可微性和非凸性，使得APloss不能直接优化。因此，本文开发了一种新的优化算法，它将感知器学习中的错误驱动更新方案和深度网络中的反向传播机制无缝地结合在一起。具体可参见：https://blog.csdn.net/jiaoyangwm/article/details/91479594  
+![loss_AP](https://user-images.githubusercontent.com/42667259/91614056-12948e00-e981-11ea-86a3-12c83826e493.png)
 
 
 ##### 回归损失
@@ -31,7 +38,15 @@ focal loss就是把CE里的p替换为pt，当预测正确的时候，pt接近1�
 
 - balanced L1 Loss,
 https://zhuanlan.zhihu.com/p/101303119   
-用在了Libra RCNN中，
+用在了Libra RCNN中，基于smoothL1Loss的改进。作者发现平均每个easy sample对梯度的贡献为hard sample的30%，相当于作者在找一个平衡的点，能让easy和hard的sample所占的梯度贡献差不多，因此引入了这个balancedL1Loss,其在接近于0的时候飞速下降，而在接近于1的时候缓慢上升，而不至于向smoothL1Loss那样只有中间regression error为1的时候有个突变，由此让他变得更加平衡，如下图所示。  
+文章：Pang et al., 2019, [Libra R-CNN: Towards Balanced Learning for Object Detection](https://openaccess.thecvf.com/content_CVPR_2019/papers/Pang_Libra_R-CNN_Towards_Balanced_Learning_for_Object_Detection_CVPR_2019_paper.pdf)  
+![loss_balancedL1_2](https://user-images.githubusercontent.com/42667259/91611535-ca26a180-e97b-11ea-81ee-9c09cafce4e4.png)  
+![loss_balancedL1_3](https://user-images.githubusercontent.com/42667259/91611538-ca26a180-e97b-11ea-9672-ac3b5908fa24.png)  
+![loss_balancedL1](https://user-images.githubusercontent.com/42667259/91611532-c98e0b00-e97b-11ea-8f2a-b9c8375c1ed7.png)
+
+- KL Loss, He et al., 2019, [Bounding Box Regression with Uncertainty for Accurate Object Detection](https://openaccess.thecvf.com/content_CVPR_2019/papers/He_Bounding_Box_Regression_With_Uncertainty_for_Accurate_Object_Detection_CVPR_2019_paper.pdf)  
+这篇文章是为了解决边界不确定的box的regression问题(不被模糊样例造成大的loss干扰). 文章预测坐标（x1,y1,x2,y2）的偏移值，对于每个偏移值，假设预测值服从高斯分布，标准值为狄拉克函数（即偏移一直为0），计算这两个分布的距离（这里用KL散度表示距离）作为损失函数。参考smooth L1 loss，也分为|xg-xe|<=1和>1的两段，如下所示：   
+![loss_KL](https://user-images.githubusercontent.com/42667259/91612859-9731dd00-e97e-11ea-8bea-f1e74d3323fb.png)
 
 - region-based loss，基于区域的损失函数，IOU类    
 以上是针对样本分布的回归损失，后来发现基于区域的损失在回归框的任务中，起到了很好的效果，因此用基于框的回归损失函数来进行回归预测。具体可以看以下提供的实例，详细介绍了IOU的系列发展。
