@@ -3,22 +3,35 @@
 
 
 ##### 分类损失
-- CE loss  
-交叉熵损失，二分类损失（binary CE loss）是它的一种极端情况. 在机器学习部分就有介绍它，
+- CE loss，交叉熵损失    
+交叉熵损失，二分类损失（binary CE loss）是它的一种极端情况. 在机器学习部分就有介绍它。  
+如下图所示,y是真实标签，a是预测标签，一般可通过sigmoid，softmax得到，x是样本，n是样本数目，和对数似然等价。    
+![ce_loss](https://user-images.githubusercontent.com/42667259/91491995-2c689f00-e8b5-11ea-8294-e6c122da3476.png)  
 
-- focal loss,  
 
+- focal loss,   
+用改变loss的方式来缓解样本的不平衡，因为改变loss只影响train部分的过程和时间，而对推断时间影响甚小，容易拓展。  
+focal loss就是把CE里的p替换为pt，当预测正确的时候，pt接近1，在FL(pt)中，其系数$(1-p_t)^\gamma$越小（只要$\gamma>0$）；简而言之，就是简单的样例比重越小，难的样例比重相对变大   
+![loss_focal_pt](https://user-images.githubusercontent.com/42667259/91609496-d0b31a00-e977-11ea-9f2e-be3e883acd90.png)
+![loss_focal](https://user-images.githubusercontent.com/42667259/91609497-d14bb080-e977-11ea-9753-4d1edb2d9632.png)
 
-- Rankings类型的损失
+- Rankings类型的损失  
 
 
 ##### 回归损失
 回归损失在这里更多的是对应与bounding box的回归。  
-- MSE， RMSE，同样在机器学习中也会用来做回归损失，具体也不再赘述。
+- MSE， RMSE，同样在机器学习中也会用来做回归损失。  
+常用在回归任务中，MSE的特点是光滑连续，可导，方便用于梯度下降。因为MSE是模型预测值 f(x) 与样本真实值 y 之间距离平方的平均值，故离得越远，误差越大，即受离群点的影响较大  
+![MSE](https://user-images.githubusercontent.com/42667259/91484410-7481c480-e8a9-11ea-851d-a3e69408d395.png)  
+![RMSE](https://user-images.githubusercontent.com/42667259/91490109-34730f80-e8b2-11ea-9a97-726b2a25208f.png)
 
-- Smooth L1 loss，
+- Smooth L1 loss，  
+特殊的，smoothL1Loss是huber loss中的delta=1时的情况。这个损失函数用在了faster RCNN中，用于定位框的回归损失。    
+![smoothL1Loss](https://user-images.githubusercontent.com/42667259/91488847-36d46a00-e8b0-11ea-8197-dfbf551309d5.png)
 
 - balanced L1 Loss,
+https://zhuanlan.zhihu.com/p/101303119   
+用在了Libra RCNN中，
 
 - region-based loss，基于区域的损失函数，IOU类    
 以上是针对样本分布的回归损失，后来发现基于区域的损失在回归框的任务中，起到了很好的效果，因此用基于框的回归损失函数来进行回归预测。具体可以看以下提供的实例，详细介绍了IOU的系列发展。
