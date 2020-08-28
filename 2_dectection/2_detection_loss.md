@@ -1,21 +1,28 @@
-和图像分割中将损失函数分为基于分布，基于区域以及基于边界的损失函数不一样，目标检测经常可以认为由2类最基础的损失，分类损失和回归损失而组成。
-##### 分类损失
-1. CE loss  
-交叉熵损失，二分类损失（binary CE loss）是它的一种极端情况.
+和图像分割中将损失函数分为基于分布，基于区域以及基于边界的损失函数不一样，目标检测经常可以认为由2类最基础的损失，分类损失和回归损失而组成。  
+![object detection loss](https://user-images.githubusercontent.com/42667259/91607219-d6a6fc00-e973-11ea-9f5e-0ba331b713cf.png)
 
-2. focal loss  
-focal loss
+
+##### 分类损失
+- CE loss  
+交叉熵损失，二分类损失（binary CE loss）是它的一种极端情况. 在机器学习部分就有介绍它，
+
+- focal loss,  
+
+
+- Rankings类型的损失
+
 
 ##### 回归损失
-回归损失在这里更多的是对应与bounding box的回归。
-1. MSE loss
+回归损失在这里更多的是对应与bounding box的回归。  
+- MSE， RMSE，同样在机器学习中也会用来做回归损失，具体也不再赘述。
 
-2. Smooth L1 loss
+- Smooth L1 loss，
 
-3. region-based loss
+- balanced L1 Loss,
 
-感谢提供的思路参考
-https://zhuanlan.zhihu.com/p/101303119
+- region-based loss，基于区域的损失函数，IOU类    
+以上是针对样本分布的回归损失，后来发现基于区域的损失在回归框的任务中，起到了很好的效果，因此用基于框的回归损失函数来进行回归预测。具体可以看以下提供的实例，详细介绍了IOU的系列发展。
+
 
 ##### 随后，我将基于YOLO系列给出的损失函数作为实例，因为它包括了多数情况。
 
@@ -43,12 +50,12 @@ IoU取值[0,1]，但GIoU有对称区间，取值范围[-1,1]。在两者重合�
 DIoU要比GIou更加符合目标框回归的机制，将目标与anchor之间的距离，重叠率以及尺度都考虑进去，使得目标框回归变得更加稳定，不会像IoU和GIoU一样出现训练过程中发散等问题. 如下图所示，b和b^{gt}是预测的中心和ground truth的中心坐标，\rho是指这两点之间的欧氏距离，c是两个框的闭包区域面积的对角线的距离。  
 DIoU loss可以直接最小化两个目标框的距离，因此比GIoU loss收敛快得多。
 对于包含两个框在水平方向和垂直方向上这种情况，DIoU损失可以使回归非常快，而GIoU损失几乎退化为IoU损失。
-DIoU还可以替换普通的IoU评价策略，应用于NMS中，使得NMS得到的结果更加合理和有效。
+DIoU还可以替换普通的IoU评价策略，应用于NMS中，使得NMS得到的结果更加合理和有效。  
 ![loss_diou_1](https://user-images.githubusercontent.com/42667259/90418168-10931b00-e0b5-11ea-8a21-1ff7f84cffd3.png)
 ![loss_diou](https://user-images.githubusercontent.com/42667259/90417766-7c28b880-e0b4-11ea-8d7e-7934f016eea2.png)
 
 - CIOU, Zheng et al., 2019, Tianjin University, [Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression](https://arxiv.org/pdf/1911.08287.pdf)  
-虽然DIOU考虑了两中心的距离，但是没有考虑到⻓宽⽐。⼀个好的预测框，应该和 ground truth 的⻓宽⽐尽量保持⼀致。因此有了CIOU，在DIOU基础上加入了惩罚项。如下图是其CIOU loss，前面有了1-。而\nu是衡量长宽比的相似性。
+虽然DIOU考虑了两中心的距离，但是没有考虑到⻓宽⽐。⼀个好的预测框，应该和 ground truth 的⻓宽⽐尽量保持⼀致。因此有了CIOU，在DIOU基础上加入了惩罚项。如下图是其CIOU loss，前面有了1-。而\nu是衡量长宽比的相似性。  
 ![loss_ciou](https://user-images.githubusercontent.com/42667259/90419415-cf9c0600-e0b6-11ea-9a82-1b8b228a684d.png)
 ![loss_ciou_2](https://user-images.githubusercontent.com/42667259/90419536-040fc200-e0b7-11ea-916a-40c2c51f41b2.png)
 ![loss_ciou_3](https://user-images.githubusercontent.com/42667259/90419540-04a85880-e0b7-11ea-8ba2-23fb92884fee.png)
