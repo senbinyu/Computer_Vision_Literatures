@@ -27,5 +27,14 @@ Learning strategies are also very important to the training and testing. Firstly
 https://blog.csdn.net/TheDayIn_CSDN/article/details/86682034  
 
 ### 2.2 深度学习中的图像增强（预处理）   
+这些手段相当于yolo v4中所说的bags of free，意指用这些数据增强的手段，只会改变训练时的策略或者增加训练的时间，但不会对模型的最终的推断时间产生影响，相当于是免费的技巧。因此，yolo v4中用到了大量的数据增强手段，而结果也令人惊喜，得到了几个点的提升。可使用albumentations包，里面包含各类图像增强技术。
 
+- 几何增强：平移，旋转，剪切等对图像几何改变的方法，可以增强模型的泛化能力。
+
+- 色彩增强：主要是亮度变换，如使用HSV(HueSaturationValue)增强。
+
+- mixup，[mixup: Beyond empirical risk minimization](https://arxiv.org/pdf/1710.09412.pdf)  
+上述的通用数据增强方法则是针对同一类做变换，而mixup则是采用对不同类别之间进行建模的方式实现数据增强。不同的类加上不同的权重，而其得到的损失函数也加上不同的权重，最后再进行反向传导求参数。具体可参阅：https://blog.csdn.net/ouyangfushu/article/details/87866579
+
+- 
 
