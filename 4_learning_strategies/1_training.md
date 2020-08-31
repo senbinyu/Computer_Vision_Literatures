@@ -1,5 +1,25 @@
 In training procedure, the choose of optimizer and loss function is of great importance, as well as the choose of neural networks.
 
+## Activation functions
+激活函数，引入非线性，因为线性函数的组合还是线性的，引入非线性可以增强模型的表达能力，使其变得更复杂。  
+sigmoid: 在0-1范围内，非对称，可求导，但是容易梯度消失，使得训练难以进行。  
+tanh: [-1, 1]，关于原点对称，但是梯度消失的问题仍没有解决。  
+ReLU,解决了部分梯度消失问题，但负的部分仍为0，神经元死亡。  
+Leaky RELU, 负的部分很小，但解决了神经元死亡问题。  
+Maxout, 参数比较多，相当于就像是又增加了一层神经网络  
+ELU，exponential leaky relu, 在Leaky RELU基础上进一步改进，在x<0的地段指数级减小，同时在前面加个系数。具体参见文献：[FAST AND ACCURATE DEEP NETWORK LEARNING BY EXPONENTIAL LINEAR UNITS (ELUS)](https://arxiv.org/pdf/1511.07289.pdf%5cnhttp://arxiv.org/abs/1511.07289%5cnhttp://arxiv.org/abs/1511.07289.pdf)  
+![activation_funcs](https://user-images.githubusercontent.com/42667259/91729737-4c45de80-eba5-11ea-9ce5-01ce27896504.png)
+
+除了上述激活函数外，还有一些新的取得很好效果的激活函数。如PReLU, Swish, Mish等。
+PReLU: 由式子可见，Leaky RELU只是PRELU的一种特殊情况。具体来源：He Kaiming et al., 2015, [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](https://arxiv.org/pdf/1502.01852.pdf)  
+![PRELU](https://user-images.githubusercontent.com/42667259/91731243-fa05bd00-eba6-11ea-9792-da910b09b8d5.png)  
+Swish:适用于深层次模型，在深层模型上的效果优于 ReLU。可以看做是介于线性函数与ReLU函数之间的平滑函数。  
+![swish](https://user-images.githubusercontent.com/42667259/91732403-7b118400-eba8-11ea-9cda-58a2f2589339.png)  
+Mish: 类似于swish，Mish几乎在所有测试中都优于RELU激活函数。具体参见论文：Misra, 2019, [Mish: A Self Regularized Non-Monotonic Neural Activation Function](https://arxiv.org/pdf/1908.08681.pdf)   
+![mish_1](https://user-images.githubusercontent.com/42667259/91732401-7b118400-eba8-11ea-8125-6079441456bf.png)  
+![mish](https://user-images.githubusercontent.com/42667259/91732398-7a78ed80-eba8-11ea-843f-e4a58768bc84.png)
+
+
 ## Optimization
 ![优化算法optimization](https://user-images.githubusercontent.com/42667259/91722936-4e0aa480-eb9b-11ea-92df-4d96b2bc09db.png)
 
