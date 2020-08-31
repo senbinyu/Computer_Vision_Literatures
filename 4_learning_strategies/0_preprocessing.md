@@ -31,10 +31,25 @@ https://blog.csdn.net/TheDayIn_CSDN/article/details/86682034
 
 - 几何增强：平移，旋转，剪切等对图像几何改变的方法，可以增强模型的泛化能力。
 
-- 色彩增强：主要是亮度变换，如使用HSV(HueSaturationValue)增强。
+- 色彩增强：主要是亮度变换，如使用HSV(HueSaturationValue)增强。  
 
-- mixup，[mixup: Beyond empirical risk minimization](https://arxiv.org/pdf/1710.09412.pdf)  
+- Blurring,模糊，诸如高斯滤波，方框滤波，中值滤波等。可以增强模型对模糊图像的泛化能力。
+
+- mixup，[mixup: Beyond empirical risk minimization](https://arxiv.org/pdf/1710.09412.pdf)   
 上述的通用数据增强方法则是针对同一类做变换，而mixup则是采用对不同类别之间进行建模的方式实现数据增强。不同的类加上不同的权重，而其得到的损失函数也加上不同的权重，最后再进行反向传导求参数。具体可参阅：https://blog.csdn.net/ouyangfushu/article/details/87866579
 
-- 
+- 随机擦除（Random Erasing, RE）增强, [Random erasing data augmentation](https://arxiv.org/abs/1708.04896)   
+随机擦除，提出的目的主要是模拟遮挡，从而提高模型泛化能力，对遮挡有更好的鲁棒性。随机选择一个区域，然后采用随机值进行覆盖，模拟遮挡场景。
+
+- Cutout，DeVries et al., 2017, [Improved Regularization of Convolutional Neural Networks with Cutout](https://arxiv.org/pdf/1708.04552.pdf)   
+其的出发点和随机擦除一样，也是模拟遮挡，目的是提高泛化能力，实现上比Random Erasing简单，随机选择一个固定大小的正方形区域，然后采用全0填充就OK了，当然为了避免填充0值对训练的影响，应该要对数据进行中心归一化操作，norm到0。具体也可参阅：https://blog.csdn.net/weixin_41560402/article/details/106036378  
+
+- CutMix, Yun et al., 2019, [CutMix: Regularization Strategy to Train Strong Classifiers with Localizable Features](https://arxiv.org/pdf/1905.04899v2.pdf)  
+就是将一部分区域cut掉但不填充0像素而是随机填充训练集中的其他数据的区域像素值，分类结果按一定的比例分配.能让模型更加准确的分类和定位。
+
+上述三种数据增强的区别：cutout和cutmix就是填充区域像素值的区别；mixup和cutmix是混合两种样本方式上的区别：mixup是将两张图按比例进行插值来混合样本，cutmix是采用cut部分区域再补丁的形式去混合图像，不会有图像混合后不自然的情形.
+
+- mosaic   
+mosaic数据增强是参考CutMix数据增强，理论上类似.但cutmix使用2张图片，而mosaic则使用4张图片，其优点是丰富检测物体的背景，且在BN计算的时候一下子会计算四张图片的数据，使得mini-batch大小不需要很大，那么一个GPU就可以达到比较好的效果。  
+![augmentations](https://user-images.githubusercontent.com/42667259/91769221-3ead4a80-ebdf-11ea-94bd-a18ed709f57c.png)
 
