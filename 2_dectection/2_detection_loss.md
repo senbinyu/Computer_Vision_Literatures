@@ -32,6 +32,10 @@ AP loss也是解决one-stage方法中样本不平衡问题,同时也和DR loss�
 ![MSE](https://user-images.githubusercontent.com/42667259/91484410-7481c480-e8a9-11ea-851d-a3e69408d395.png)  
 ![RMSE](https://user-images.githubusercontent.com/42667259/91490109-34730f80-e8b2-11ea-9a97-726b2a25208f.png)
 
+- Huber loss,  
+上述MSE对异常值非常敏感，而huber loss则是一种可以对异常值不太敏感的方法，在$\delta$范围外，其采用L1的方式，同时前面固定系数用以控制异常值影响；而在$\delta$范围内，则用L2的方式，同时前面也有系数。  
+![loss_huber](https://user-images.githubusercontent.com/42667259/91897431-92c93500-ec9a-11ea-847a-6591fb86e5b2.png)
+
 - Smooth L1 loss，  
 特殊的，smoothL1Loss是huber loss中的delta=1时的情况。这个损失函数用在了faster RCNN中，用于定位框的回归损失。    
 ![smoothL1Loss](https://user-images.githubusercontent.com/42667259/91488847-36d46a00-e8b0-11ea-8197-dfbf551309d5.png)
