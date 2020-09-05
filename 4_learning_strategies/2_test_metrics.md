@@ -1,3 +1,6 @@
+In test procedure, the further postprocessing, like test image augmentation, pseudo label method, are also frequently used, especially in Kaggle competitions.
+
+![metric](https://user-images.githubusercontent.com/42667259/92313395-b73f4d00-efcb-11ea-8d4a-e789a8acadb4.png)
 
 
 - map, mean average precision  
