@@ -122,7 +122,7 @@ v2除了引入anchor外，还进行了如下改进：改变ground truth的编码
 - v3, + darknet-53. use k-means to cluster 9 anchors. Much faster.   
 一种是普通的v3，结合了FPN的多尺度融合。
 
-另一种是SPP的v3, 在预测最大物体的支路上也添加了SPP的结构（用不同大小的kernel进行max pooling，再拼接起来。为了保证大小相同，会用不同的padding），同时整个结构参考了FPN的多尺度融合方式。总共9个anchor，每个尺度下的对应3个anchor，每个尺度下输出的tensor的另一维度为255=3 * (80 + 1 + 4). 损失函数分类和置信度部分变成交叉熵，bbox部分略有改动，和2基本一样。置信度标签是直接有对象就为1，无对象为0.
+另一种是SPP的v3, 在预测最大物体的支路上也添加了SPP的结构（用不同大小的kernel进行max pooling，再拼接起来。为了保证大小相同，会用不同的padding），同时整个结构参考了FPN的多尺度融合方式。总共9个anchor，每个尺度下的对应3个anchor，每个尺度下输出的tensor的另一维度为255=3 * (80 + 1 + 4). 损失函数分类和置信度部分变成交叉熵，bbox部分略有改动，和2基本一样。置信度标签是直接有对象就为1，无对象为0.  
 ![yolov3](https://user-images.githubusercontent.com/42667259/89791465-a8c45980-db23-11ea-920a-5f1316958d8c.png)
 ![yolov3_2](https://user-images.githubusercontent.com/42667259/90336370-b8d4b100-dfdb-11ea-82f0-52fd363a5ca0.png)
 ![yolov3_spp](https://user-images.githubusercontent.com/42667259/90336391-e883b900-dfdb-11ea-906f-db40ca594f88.png)
