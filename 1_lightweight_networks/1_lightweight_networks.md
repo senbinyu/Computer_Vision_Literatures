@@ -17,6 +17,11 @@ Refer to paper [Lightweight Network Research Based on Deep Learning: A Review](h
 
 ## 2. Collections of varying networks
 
+### ESPNet, 2018
+- v1, Mehta et al.  
+
+- v2, Mehta et al.
+
 ### shuffleNet, 2018
 - v1, Zhang Xiangyu
 In ResNeXt, group conv (several channels) is used; in mobileNet, it is an extreme case, each channel is a group, is conved separately. In mobileNet-va paper, 1 * 1 conv (pointwise conv) occupies 94% MAdds. ShuffleNet is trying to avoid this problem. Moreover, the relationship between different channels has not been utilized. (组内的卷积不利于通道间信息交流)
